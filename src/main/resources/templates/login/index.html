@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- CSS -->
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<!-- JS -->
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+	<title>ログイン画面</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+	        <span class="navbar-brand">TODOリスト</span>
+    </nav>
+	
+	<div class="container">
+        <div class="row my-2">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3">
+                <h1></h1>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+
+<!--        <?php if (!empty($_SESSION['msg']['error'])) : ?>-->
+<!--            <div class="row my-2">-->
+<!--                <div class="col-sm-3"></div>-->
+<!--                <div class="col-sm-6 alert alert-danger alert-dismissble fade show">-->
+<!--                    <?= $_SESSION['msg']['error'] ?>-->
+<!--                    <button class="close" data-dismiss="alert">&times;</button>-->
+<!--                </div>-->
+<!--                <div class="col-sm-3"></div>-->
+<!--            </div>-->
+<!--        <?php endif ?>-->
+
+        <div class="row my-2 justify-content-center">
+            <div class="col-sm-6">
+                <form action="/login" method="post" th:object="${loginForm}">
+                    <div class="form-group">
+                        <label for="user" th:text="#{user}"></label>
+                        <input type="text" th:field="*{user}" th:value="${user}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="pass" th:text="#{pass}"></label>
+                        <input type="password" th:field="*{pass}" th:value="${pass}" class="form-control">
+                    </div>
+					<input type="submit" th:value="#{login.btn}" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
