@@ -50,6 +50,9 @@ public class SecurityConfig {
                 .passwordParameter("pass")
                 .defaultSuccessUrl("/todo", true)
                 .permitAll()
+        ).logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
         );
 
         http.headers(headers -> headers

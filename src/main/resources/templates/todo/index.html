@@ -120,11 +120,17 @@
                             <a href="./delete.php?item_id=<?= $item['id'] ?>" class="btn btn-danger my-0">削除</a>
                         </td>
                         </tr>
-                    <?php
-                }
-                    ?>
+<!--                    <?php-->
+<!--                }-->
+<!--                    ?>-->
             </tbody>
         </table>
+		
+		<form method="post" th:action="@{/logout}">
+			<button class="btn btn-link pull-right navbar-brand" type="submit">
+				ログアウト
+			</button>
+		</form>
 
 <!--        <?php if ($isSearch) : ?>-->
 <!--             検索のとき、戻るボタンを表示する -->
