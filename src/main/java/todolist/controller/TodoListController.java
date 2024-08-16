@@ -7,11 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import todolist.form.TodoListForm;
 
 @Controller
-//@RequestMapping("/login")
 public class TodoListController {
 	
 	@GetMapping("/todo")
 	public String getTodoList(Model model, TodoListForm todolistForm) {
 		return "todo/index";
+	}
+	
+	@GetMapping("/todo/entry")
+	public String getTodoEntry() {
+		return "todo/entry";
 	}
 }
