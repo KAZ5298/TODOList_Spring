@@ -44,7 +44,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        名前さん
+                        <?= $user['family_name'] . $user['first_name'] ?>さん
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <div class="dropdown-divider"></div>
@@ -76,40 +76,40 @@
             </thead>
 
             <tbody>
-<!--                <?php-->
-<!--                foreach ($items as $item) {-->
-<!--                    if ($item['expire_date'] < date('Y-m-d') && is_null($item['finished_date'])) {-->
-<!--                        // 期限日が今日を過ぎていて、かつ、完了日がnullのとき、期限日を過ぎたレコードの背景色を変える-->
-<!--                        $class = ' class="text-danger"';-->
-<!--                    } elseif (!is_null($item['finished_date'])) {-->
-<!--                        // 完了日に値があるときは、完了したレコードの文字に打消し線を入れる-->
-<!--                        $class = ' class="del"';-->
-<!--                    } else {-->
-<!--                        $class = '';-->
-<!--                    }-->
-<!--                ?>-->
-<!--                    <tr<?= $class ?>>-->
-<!--                        <td class="align-middle">-->
-<!--                            <?= $item['item_name'] ?>-->
-<!--                        </td>-->
-<!--                        <td class="align-middle">-->
-<!--                            <?= $item['family_name'] . $item['first_name'] ?>-->
-<!--                        </td>-->
-<!--                        <td class="align-middle">-->
-<!--                            <?= $item['registration_date'] ?>-->
-<!--                        </td>-->
-<!--                        <td class="align-middle">-->
-<!--                            <?= $item['expire_date'] ?>-->
-<!--                        </td>-->
-<!--                        <td class="align-middle">-->
-<!--                            <?php-->
-<!--                            if (empty($item['finished_date'])) {-->
-<!--                                echo '未';-->
-<!--                            } else {-->
-<!--                                echo $item['finished_date'];-->
-<!--                            }-->
-<!--                            ?>-->
-<!--                        </td>-->
+                <?php
+                foreach ($items as $item) {
+                    if ($item['expire_date'] < date('Y-m-d') && is_null($item['finished_date'])) {
+                        // 期限日が今日を過ぎていて、かつ、完了日がnullのとき、期限日を過ぎたレコードの背景色を変える
+                        $class = ' class="text-danger"';
+                    } elseif (!is_null($item['finished_date'])) {
+                        // 完了日に値があるときは、完了したレコードの文字に打消し線を入れる
+                        $class = ' class="del"';
+                    } else {
+                        $class = '';
+                    }
+                ?>
+                    <tr<?= $class ?>>
+                        <td class="align-middle">
+                            <?= $item['item_name'] ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $item['family_name'] . $item['first_name'] ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $item['registration_date'] ?>
+                        </td>
+                        <td class="align-middle">
+                            <?= $item['expire_date'] ?>
+                        </td>
+                        <td class="align-middle">
+                            <?php
+                            if (empty($item['finished_date'])) {
+                                echo '未';
+                            } else {
+                                echo $item['finished_date'];
+                            }
+                            ?>
+                        </td>
                         <td class="align-middle button">
                             <form action="./complete_action.php" method="post" class="my-sm-1">
                                 <input type="hidden" name="token" value="<?= $token ?>">
@@ -126,18 +126,18 @@
             </tbody>
         </table>
 
-<!--        <?php if ($isSearch) : ?>-->
-<!--             検索のとき、戻るボタンを表示する -->
-<!--            <div class="row">-->
-<!--                <div class="col">-->
-<!--                    <form>-->
-<!--                        <div class="goback">-->
-<!--                            <input class="btn btn-primary my-0" type="button" value="戻る" onclick="location.href='./';">-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        <?php endif ?>-->
+        <?php if ($isSearch) : ?>
+            <!-- 検索のとき、戻るボタンを表示する -->
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="goback">
+                            <input class="btn btn-primary my-0" type="button" value="戻る" onclick="location.href='./';">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <?php endif ?>
 
     </div>
     <!-- コンテナ ここまで -->

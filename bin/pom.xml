@@ -86,28 +86,6 @@
 			<artifactId>modelmapper-spring</artifactId>
 			<version>3.2.0</version>
 		</dependency>
-		<!-- SpringSecurity -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<!-- Thymeleaf拡張ライブラリ-->
-		<dependency>
-		    <groupId>org.thymeleaf.extras</groupId>
-		    <artifactId>thymeleaf-extras-springsecurity6</artifactId>
-		</dependency>
-		<!-- MyBatis -->
-		<dependency>
-		    <groupId>org.mybatis.spring.boot</groupId>
-		    <artifactId>mybatis-spring-boot-starter</artifactId>
-		    <version>3.0.3</version>
-		</dependency>
-		<!-- Model Mapper -->
-		<dependency>
-		    <groupId>org.modelmapper.extensions</groupId>
-		    <artifactId>modelmapper-spring</artifactId>
-		    <version>3.2.0</version>
-		</dependency>
 	</dependencies>
 
 	<build>
