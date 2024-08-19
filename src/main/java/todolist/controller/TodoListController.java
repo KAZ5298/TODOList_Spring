@@ -10,12 +10,12 @@ import todolist.form.TodoListForm;
 public class TodoListController {
 	
 	@GetMapping("/todo")
-	public String getTodoList(Model model, TodoListForm todolistForm) {
+	public String getTodoList(Model model, TodoListForm todolistForm, String user) {
 		return "todo/index";
 	}
 	
 	@GetMapping("/todo/entry")
-	public String getTodoEntry() {
+	public String getTodoEntry(Model model) {
 		return "todo/entry";
 	}
 }

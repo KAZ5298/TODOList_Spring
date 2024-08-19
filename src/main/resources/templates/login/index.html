@@ -11,11 +11,11 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-	        <span class="navbar-brand">TODOリスト</span>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <span class="navbar-brand">TODOリスト</span>
     </nav>
-	
-	<div class="container">
+
+    <div class="container">
         <div class="row my-2">
             <div class="col-sm-3"></div>
             <div class="col-sm-3">
@@ -23,7 +23,7 @@
             </div>
             <div class="col-sm-3"></div>
         </div>
-		
+
         <div class="row my-2">
             <div class="col-sm-3"></div>
             <div class="col-sm-6 alert alert-danger alert-dismissble fade show">
@@ -31,25 +31,27 @@
 					th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
 					class="text-danger">
 				</p>
-                <button class="close" data-dismiss="alert">&times;</button>
+				<button class="close" data-dismiss="alert">&times;</button>
             </div>
             <div class="col-sm-3"></div>
         </div>
-		
-        <div class="row my-2 justify-content-center">
+
+        <div class="row my-2">
+            <div class="col-sm-3"></div>
             <div class="col-sm-6">
                 <form action="/login" method="post" th:object="${loginForm}">
                     <div class="form-group">
-                        <label for="user" th:text="#{user}"></label>
+						<label for="user" th:text="#{user}"></label>
                         <input type="text" th:field="*{user}" th:value="${user}" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="pass" th:text="#{pass}"></label>
+						<label for="pass" th:text="#{pass}"></label>
                         <input type="password" th:field="*{pass}" th:value="${pass}" class="form-control">
                     </div>
-					<input type="submit" th:value="#{login.btn}" class="btn btn-primary">
+                    <input type="submit" th:value="#{login.btn}" class="btn btn-primary">
                 </form>
             </div>
+            <div class="col-sm-3"></div>
         </div>
     </div>
 </body>

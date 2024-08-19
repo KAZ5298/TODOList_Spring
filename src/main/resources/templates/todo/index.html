@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,25 +28,26 @@
 </head>
 
 <body>
-	<!-- ナビゲーション -->
+    <!-- ナビゲーション -->
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
         <span class="navbar-brand">TODOリスト</span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+				<li class="nav-item active">
                     <a class="nav-link" th:href="@{/todo}">作業一覧 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-<!--                    <a class="nav-link" href="./entry.php">作業登録</a>-->
 					<a class="nav-link" th:href="@{/todo/entry}">作業登録</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        名前さん
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span sec:authentication="principal.fullname"></span>さん
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <div class="dropdown-divider"></div>
@@ -54,7 +56,8 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" action="./" method="get">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="<?= $search ?>">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
+                    value="">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">検索</button>
             </form>
         </div>
@@ -77,61 +80,152 @@
             </thead>
 
             <tbody>
-<!--                <?php-->
-<!--                foreach ($items as $item) {-->
-<!--                    if ($item['expire_date'] < date('Y-m-d') && is_null($item['finished_date'])) {-->
-<!--                        // 期限日が今日を過ぎていて、かつ、完了日がnullのとき、期限日を過ぎたレコードの背景色を変える-->
-<!--                        $class = ' class="text-danger"';-->
-<!--                    } elseif (!is_null($item['finished_date'])) {-->
-<!--                        // 完了日に値があるときは、完了したレコードの文字に打消し線を入れる-->
-<!--                        $class = ' class="del"';-->
-<!--                    } else {-->
-<!--                        $class = '';-->
-<!--                    }-->
-<!--                ?>-->
-<!--                    <tr<?= $class ?>>-->
-<!--                        <td class="align-middle">-->
-<!--                            <?= $item['item_name'] ?>-->
-<!--                        </td>-->
-<!--                        <td class="align-middle">-->
-<!--                            <?= $item['family_name'] . $item['first_name'] ?>-->
-<!--                        </td>-->
-<!--                        <td class="align-middle">-->
-<!--                            <?= $item['registration_date'] ?>-->
-<!--                        </td>-->
-<!--                        <td class="align-middle">-->
-<!--                            <?= $item['expire_date'] ?>-->
-<!--                        </td>-->
-<!--                        <td class="align-middle">-->
-<!--                            <?php-->
-<!--                            if (empty($item['finished_date'])) {-->
-<!--                                echo '未';-->
-<!--                            } else {-->
-<!--                                echo $item['finished_date'];-->
-<!--                            }-->
-<!--                            ?>-->
-<!--                        </td>-->
-                        <td class="align-middle button">
-                            <form action="./complete_action.php" method="post" class="my-sm-1">
-                                <input type="hidden" name="token" value="<?= $token ?>">
-                                <input type="hidden" name="item_id" value="<?= $item['id'] ?>">
-                                <button class="btn btn-primary my-0" type="submit">完了</button>
-                            </form>
-                            <a href="./edit.php?item_id=<?= $item['id'] ?>" class="btn btn-success my-0">修正</a>
-                            <a href="./delete.php?item_id=<?= $item['id'] ?>" class="btn btn-danger my-0">削除</a>
-                        </td>
-                        </tr>
-<!--                    <?php-->
-<!--                }-->
-<!--                    ?>-->
+                <tr class="text-danger">
+                    <td class="align-middle">
+                        テストの項目
+                    </td>
+                    <td class="align-middle">
+                        テスト花子 </td>
+                    <td class="align-middle">
+                        2020-01-13 </td>
+                    <td class="align-middle">
+                        2020-02-12 </td>
+                    <td class="align-middle">
+                        未 </td>
+                    <td class="align-middle button">
+                        <form action="./complete.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="1">
+                            <button class="btn btn-primary my-0" type="submit">完了</button>
+                        </form>
+                        <form action="edit.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="1">
+                            <input class="btn btn-primary my-0" type="submit" value="修正">
+                        </form>
+                        <form action="delete.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="1">
+                            <input class="btn btn-primary my-0" type="submit" value="削除">
+                        </form>
+                    </td>
+                </tr>
+                <tr class="del">
+                    <td class="align-middle">
+                        テストの項目２ </td>
+                    <td class="align-middle">
+                        テスト太郎 </td>
+                    <td class="align-middle">
+                        2020-02-13 </td>
+                    <td class="align-middle">
+                        2020-02-19 </td>
+                    <td class="align-middle">
+                        2020-02-13 </td>
+                    <td class="align-middle button">
+                        <form action="./complete.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="2">
+                            <button class="btn btn-primary my-0" type="submit">完了</button>
+                        </form>
+                        <form action="edit.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="2">
+                            <input class="btn btn-primary my-0" type="submit" value="修正">
+                        </form>
+                        <form action="delete.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="2">
+                            <input class="btn btn-primary my-0" type="submit" value="削除">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="align-middle">
+                        テストの項目３ </td>
+                    <td class="align-middle">
+                        テスト花子 </td>
+                    <td class="align-middle">
+                        2020-02-13 </td>
+                    <td class="align-middle">
+                        2020-02-24 </td>
+                    <td class="align-middle">
+                        未 </td>
+                    <td class="align-middle button">
+                        <form action="./complete.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="3">
+                            <button class="btn btn-primary my-0" type="submit">完了</button>
+                        </form>
+                        <form action="edit.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="3">
+                            <input class="btn btn-primary my-0" type="submit" value="修正">
+                        </form>
+                        <form action="delete.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="3">
+                            <input class="btn btn-primary my-0" type="submit" value="削除">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="align-middle">
+                        テストの項目４ </td>
+                    <td class="align-middle">
+                        テスト太郎 </td>
+                    <td class="align-middle">
+                        2020-02-13 </td>
+                    <td class="align-middle">
+                        2020-03-03 </td>
+                    <td class="align-middle">
+                        未 </td>
+                    <td class="align-middle button">
+                        <form action="./complete.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="4">
+                            <button class="btn btn-primary my-0" type="submit">完了</button>
+                        </form>
+                        <form action="edit.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="4">
+                            <input class="btn btn-primary my-0" type="submit" value="修正">
+                        </form>
+                        <form action="delete.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="4">
+                            <input class="btn btn-primary my-0" type="submit" value="削除">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="align-middle">
+                        テストの項目５ </td>
+                    <td class="align-middle">
+                        テスト太郎 </td>
+                    <td class="align-middle">
+                        2020-02-13 </td>
+                    <td class="align-middle">
+                        2020-04-01 </td>
+                    <td class="align-middle">
+                        未 </td>
+                    <td class="align-middle button">
+                        <form action="./complete.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="5">
+                            <button class="btn btn-primary my-0" type="submit">完了</button>
+                        </form>
+                        <form action="edit.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="5">
+                            <input class="btn btn-primary my-0" type="submit" value="修正">
+                        </form>
+                        <form action="delete.php" method="post" class="my-sm-1">
+                            <input type="hidden" name="item_id" value="5">
+                            <input class="btn btn-primary my-0" type="submit" value="削除">
+                        </form>
+                    </td>
+                </tr>
             </tbody>
         </table>
+
+    </div>
+    <!-- コンテナ ここまで -->
+
+	<form method="post" th:action="@{/logout}">
+		<button class="btn btn-link pull-right navbar-brand" type="submit">
+			ログアウト
+		</button>
+	</form>
+</body>
+
 		
-		<form method="post" th:action="@{/logout}">
-			<button class="btn btn-link pull-right navbar-brand" type="submit">
-				ログアウト
-			</button>
-		</form>
+		
 
 <!--        <?php if ($isSearch) : ?>-->
 <!--             検索のとき、戻るボタンを表示する -->
