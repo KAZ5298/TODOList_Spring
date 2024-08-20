@@ -19,7 +19,7 @@ public class TodoListForm {
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date expireDate;
 	
-	private Boolean finishedDate;
+	private int finishedDate;
 	
 	private int isDeleted;
 

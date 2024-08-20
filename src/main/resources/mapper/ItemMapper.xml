@@ -4,11 +4,32 @@
 
 <mapper namespace="todolist.repository.ItemMapper">
 
+	<!-- 作業一覧取得 -->
 	<select id="getAllItems" resultType="Item">
 		select
 			*
 		from
 			todo_items
 	</select>
+	
+	<!-- 作業登録 -->
+	<insert id="entryItem">
+		insert into todo_items (
+			user_id,
+			item_name,
+			registration_date,
+			expire_date,
+			finished_date,
+			is_deleted
+		)
+		VALUES (
+			#{userId},
+			#{itemName},
+			#{registrationDate},
+			#{expireDate},
+			CURDATE(),
+			0
+		)
+	</insert>
 
 </mapper>

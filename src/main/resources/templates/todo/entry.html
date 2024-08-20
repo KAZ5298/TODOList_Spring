@@ -94,8 +94,8 @@
                             <input type="text" class="form-control" th:field="*{itemName}">
                         </div>
                         <div class="form-group">
-                            <label for="id" th:text="#{todo.user}"></label>
-							<select class="dropdown form-control">
+                            <label for="userId" th:text="#{todo.user}"></label>
+							<select class="dropdown form-control" th:field="*{userId}">
 								<option th:value="0">--選択してください--</option>
 								<option th:each="item : ${userList}" th:value="${item.id}" th:text="${item.firstName + ' ' + item.familyName}"></option>
 							</select>
@@ -105,7 +105,8 @@
                             <input type="date" class="form-control" th:field="*{expireDate}">
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" th:field="*{finishedDate}">
+							<input type="hidden" value="0" th:field="*{finishedDate}">
+                            <input type="checkbox" class="form-check-input" th:field="*{finishedDate}" value="1">
                             <label for="finished" th:text="#{finishedDate}"></label>
                         </div>
 
