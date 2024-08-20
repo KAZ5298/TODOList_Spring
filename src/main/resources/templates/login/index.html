@@ -41,7 +41,7 @@
             <div class="col-sm-6">
                 <form action="/login" method="post" th:object="${loginForm}">
                     <div class="form-group">
-						<label for="user" th:text="#{user}"></label>
+						<label for="user" th:text="#{login.user}"></label>
                         <input type="text" th:field="*{user}" th:value="${user}" class="form-control">
                     </div>
                     <div class="form-group">

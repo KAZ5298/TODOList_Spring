@@ -12,5 +12,12 @@
 		where
 			user = #{user}
 	</select>
+	
+	<select id="getUsers" resultType="User">
+		select
+			*
+		from
+			users
+	</select>
 
 </mapper>

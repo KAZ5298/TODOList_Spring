@@ -1,5 +1,7 @@
 package todolist.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getLoginUser(String user) {
 		return mapper.findLoginUser(user);
+	}
+	
+	@Override
+	public List<User> getUsers() {
+		return mapper.getUsers();
 	}
 	
 }
