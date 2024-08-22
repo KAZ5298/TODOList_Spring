@@ -22,8 +22,8 @@ public class TodoListForm {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date finishedDate;
 	
-	private int isFinished;
+	private Integer isFinished;
 	
-	private int isDeleted;
+	private Integer isDeleted;
 
 }

@@ -43,18 +43,18 @@
 			finished_date,
 			is_deleted
 		)
-		VALUES (
-			#{userId},
-			#{itemName},
-			CURDATE(),
-			#{expireDate},
-			<if test="isFinished == 1">
-				null,
-			</if>
-			<if test="isFinished == 0">
-				CURDATE(),
-			</if>
-			0
+	    VALUES (
+		    #{userId},
+		    #{itemName},
+		    CURDATE(),
+		    #{expireDate},
+		    <if test="isFinished == 1">
+		    	CURDATE(),
+		    </if>
+		    <if test="isFinished == 0">
+		    	null,
+		    </if>
+		    0
 		)
 	</insert>
 

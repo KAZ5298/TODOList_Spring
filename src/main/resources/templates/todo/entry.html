@@ -77,7 +77,7 @@
 			<!-- エラーメッセージ -->
 			<div class="row my-2">
 				<div class="col-sm-3"></div>
-				<div class="col-sm-6 alert alert-danger alert-dismissble fade show">
+				<div class="col-sm-6 alert alert-danger alert-dismissible fade show">
 					担当者を選択してください。 <button class="close" data-dismiss="alert">&times;</button>
 				</div>
 				<div class="col-sm-3"></div>
@@ -97,17 +97,17 @@
 							<label for="userId" th:text="#{todo.user}"></label>
 							<select class="dropdown form-control" th:field="*{userId}">
 								<option th:value="0">--選択してください--</option>
-								<option th:each="item : ${userList}" th:value="${item.id}" th:text="${item.firstName + ' ' + item.familyName}"></option>
+								<option th:each="item : ${userList}" th:value="${item.id}" th:text="${item.familyName + ' ' + item.firstName}"></option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="expireDate" th:text="#{expireDate}">期限</label>
 							<input type="date" class="form-control" th:field="*{expireDate}">
 						</div>
-						<div class="form-group form-check">
-							<input type="hidden" value="0" th:field="*{isFinished}">
-							<input type="checkbox" class="form-check-input" th:field="*{isFinished}" value="1">
-							<label for="isFinished" th:text="#{isFinished}"></label>
+						<div class="form-group">
+							<input type="hidden" id="hiddenIsFinished" name="isFinished" value="0">
+							<input type="checkbox" id="checkboxIsFinished" class="form-check-input" name="isFinished" value="1">
+						    <label for="checkboxIsFinished">完了</label>
 						</div>
 						
 						<input type="submit" value="登録" class="btn btn-primary">
