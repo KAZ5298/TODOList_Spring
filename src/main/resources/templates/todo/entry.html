@@ -105,9 +105,9 @@
                             <input type="date" class="form-control" th:field="*{expireDate}">
                         </div>
                         <div class="form-group form-check">
-							<input type="hidden" value="0" th:field="*{finishedDate}">
-                            <input type="checkbox" class="form-check-input" th:field="*{finishedDate}" value="1">
-                            <label for="finished" th:text="#{finishedDate}"></label>
+							<input type="hidden" value="0" th:field="*{isFinished}">
+                            <input type="checkbox" class="form-check-input" th:field="*{isFinished}" value="1">
+                            <label for="isFinished" th:text="#{isFinished}"></label>
                         </div>
 
                         <input type="submit" value="登録" class="btn btn-primary">

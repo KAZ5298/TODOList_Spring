@@ -2,11 +2,13 @@ package todolist.controller;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import todolist.form.TodoListForm;
@@ -24,6 +26,9 @@ public class TodoListController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	@GetMapping("/todo")
 	public String getTodoList(Model model) {
@@ -45,5 +50,15 @@ public class TodoListController {
 		log.info(userList.toString());
 		
 		return "todo/entry";
+	}
+	
+	@PostMapping("/todo/entry")
+	public String postTodoEntry(Model model, @ModelAttribute TodoListForm todoListForm) {
+		
+		Item item = modelMapper.map(todoListForm, Item.class);
+		
+		itemService.entryItem(item);
+		
+		return "redirect:/todo";
 	}
 }

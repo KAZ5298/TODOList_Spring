@@ -13,13 +13,16 @@ public class TodoListForm {
 	private Integer userId;
 	private String itemName;
 	
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date registrationDate;
 	
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date expireDate;
 	
-	private int finishedDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date finishedDate;
+	
+	private int isFinished;
 	
 	private int isDeleted;
 

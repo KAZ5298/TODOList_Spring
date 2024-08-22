@@ -20,4 +20,9 @@ public class ItemServiceImpl implements ItemService {
 		return mapper.getAllItems();
 	}
 	
+	@Override
+	public void entryItem(Item item) {
+		mapper.entryItem(item);
+	}
+	
 }

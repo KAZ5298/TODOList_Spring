@@ -6,4 +6,6 @@ import todolist.model.Item;
 
 public interface ItemService {
 	public List<Item> getAllItems();
+	
+	public void entryItem(Item item);
 }

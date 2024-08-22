@@ -25,9 +25,14 @@
 		VALUES (
 			#{userId},
 			#{itemName},
-			#{registrationDate},
-			#{expireDate},
 			CURDATE(),
+			#{expireDate},
+			<if test="isFinished == 1">
+				null,
+			</if>
+			<if test="isFinished == 0">
+				CURDATE(),
+			</if>
 			0
 		)
 	</insert>
