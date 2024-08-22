@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 public class Item {
+	private Integer id;
 	private Integer userId;
 	private String itemName;
 	private Date registrationDate;
@@ -13,6 +14,5 @@ public class Item {
 	private Date finishedDate;
 	private Integer isFinished;
 	private Integer isDeleted;
-//	private Date createDateTime;
-//	private Date updateDateTime;
+	private User user;
 }
