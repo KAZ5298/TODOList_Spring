@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- CSS -->
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<!-- JS -->
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+	<title>削除確認</title>
+	<style>
+		/* ボタンを横並びにする */
+		form {
+			display: inline-block;
+		}
+		
+		/* 打消し線を入れる */
+		tr.del>td {
+			text-decoration: line-through;
+		}
+		
+		/* ボタンのセルは打消し線を入れない */
+		tr.del>td.button {
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- ナビゲーション -->
+	<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+		<span class="navbar-brand">TODOリスト</span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/todo}">作業一覧</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" th:href="@{/todo/entry}">作業登録 <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span sec:authentication="principal.fullname"></span>さん
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="../login/logout.php">ログアウト</a>
+					</div>
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0" action="./" method="get">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
+					value="">
+				<button class="btn btn-outline-light my-2 my-sm-0" type="submit">検索</button>
+			</form>
+		</div>
+	</nav>
+	<!-- ナビゲーション ここまで -->
+	
+	<!-- コンテナ -->
+	<div class="container">
+		<div class="container">
+			<div class="row my-2">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6 alert alert-info">
+					下記の項目を削除します。よろしいですか？
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+			
+			<!-- 入力フォーム -->
+			<div class="row my-2">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6">
+					<form th:action="@{/todo/delete/{id}(id=${todoListForm.id})}" method="post" th:object="${todoListForm}">
+						<input type="hidden" th:field="*{id}" />
+						<div class="form-group">
+							<label for="itemName" th:text="#{itemName}"></label>
+							<input type="text" class="form-control" th:field="*{itemName}" disabled>
+						</div>
+						<div class="form-group">
+							<label for="userId" th:text="#{todo.user}"></label>
+							<select class="dropdown form-control" th:field="*{userId}" disabled>
+								<option th:value="0">--選択してください--</option>
+								<option th:each="item : ${userList}" th:value="${item.id}" th:text="${item.familyName + ' ' + item.firstName}"></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="expireDate" th:text="#{expireDate}">期限</label>
+							<input type="date" class="form-control" th:field="*{expireDate}" disabled>
+						</div>
+						<div class="form-group form-check">
+							<input type="hidden" value="0" th:field="*{isFinished}">
+							<input type="checkbox" class="form-check-input" th:field="*{isFinished}" value="1" disabled>
+							<label for="isFinished" th:text="#{isFinished}"></label>
+						</div>
+						
+						<input type="submit" value="削除" class="btn btn-danger">
+						<input type="button" value="キャンセル" class="btn btn-outline-primary"
+							onclick="location.href='./';">
+					</form>
+				</div>
+				<div class="col-sm-3"></div>
+			</div>
+			<!-- 入力フォーム ここまで -->
+		</div>
+		<!-- コンテナ ここまで -->
+		
+		<form method="post" th:action="@{/logout}">
+			<button class="btn btn-link pull-right navbar-brand" type="submit">
+				ログアウト
+			</button>
+		</form>
+
+</body>
+</html>

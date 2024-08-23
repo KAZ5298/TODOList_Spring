@@ -83,7 +83,7 @@ public class TodoListController {
 		return "todo/edit";
 	}
 	
-	@PostMapping("todo/edit/{id}")
+	@PostMapping("/todo/edit/{id}")
 	public String postTodoEdit(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
 		
 		Item item = itemService.getItemOne(id);
@@ -95,6 +95,38 @@ public class TodoListController {
 			item.setIsFinished(todoListForm.getIsFinished());
 			
 			itemService.editItem(item);
+		}
+		
+		return "redirect:/todo";
+	}
+	
+	@GetMapping("/todo/delete/{id}")
+	public String getTodoDelete(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
+		
+		List<User> userList = userService.getUsers();
+		
+		model.addAttribute("userList", userList);
+		
+		log.info(userList.toString());
+		
+		Item item = itemService.getItemOne(id);
+		
+		todoListForm = modelMapper.map(item, TodoListForm.class);
+		
+		model.addAttribute("todoListForm", todoListForm);
+		
+		log.info(todoListForm.toString());
+		
+		return "todo/delete";
+	}
+	
+	@PostMapping("/todo/delete/{id}")
+	public String postTodoDelete(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
+		
+		Item item = itemService.getItemOne(id);
+		
+		if (item != null) {
+			itemService.deleteItem(item);
 		}
 		
 		return "redirect:/todo";

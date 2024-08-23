@@ -34,4 +34,9 @@ public class ItemServiceImpl implements ItemService {
 	public void editItem(Item item) {
 		mapper.editItem(item);
     }
+	
+	@Override
+	public void deleteItem(Item item) {
+		mapper.deleteItem(item);
+	}
 }

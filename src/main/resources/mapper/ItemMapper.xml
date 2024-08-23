@@ -12,7 +12,7 @@
 		<result column="registration_date" property="registrationDate" />
 		<result column="expire_date" property="expireDate" />
 		<result column="finished_date" property="finishedDate" />
-		<result column="isDeleted" property="isDeleted" />
+		<result column="is_deleted" property="isDeleted" />
 		<association property="user" resultMap="user" />
 	</resultMap>
 	
@@ -30,6 +30,8 @@
 		from
 			todo_items
 			left join users on todo_items.user_id = users.id
+		where
+			todo_items.is_deleted != 1
 	</select>
 	
 	<!-- 作業登録 -->
@@ -84,6 +86,16 @@
 					finished_date = null
 				</otherwise>
 			</choose>
+		where
+			id = #{id}
+	</update>
+	
+	<!-- 作業削除（論理削除） -->
+	<update id="deleteItem">
+		update
+			todo_items
+		set
+			is_deleted = 1
 		where
 			id = #{id}
 	</update>

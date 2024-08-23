@@ -97,10 +97,13 @@
 <!--							<input type="hidden" name="item_id" value="1">-->
 <!--							<input class="btn btn-success my-0" type="submit" value="修正">-->
 <!--						</form>-->
-						<form action="delete.php" method="post" class="my-sm-1">
-							<input type="hidden" name="item_id" value="1">
-							<input class="btn btn-danger my-0" type="submit" value="削除">
-						</form>
+						<a class="btn btn-danger my-0" th:href="@{'todo/delete/' + ${item.id}}">
+							削除
+						</a>
+<!--						<form action="delete.php" method="post" class="my-sm-1">-->
+<!--							<input type="hidden" name="item_id" value="1">-->
+<!--							<input class="btn btn-danger my-0" type="submit" value="削除">-->
+<!--						</form>-->
 					</td>
 				</tr>
 <!--                <tr class="text-danger">-->

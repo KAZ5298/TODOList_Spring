@@ -14,4 +14,6 @@ public interface ItemService {
 	
 	public void editItem(Item item);
 	
+	public void deleteItem(Item item);
+	
 }
