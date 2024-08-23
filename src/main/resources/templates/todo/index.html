@@ -5,9 +5,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- CSS -->
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}">
 	<!-- JS -->
-	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+	<script th:src="@{/webjars/popper.js/2.11.7/umd/popper.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.min.js}" defer></script>
 	<title>作業一覧</title>
 	<style>
 		/* ボタンを横並びにする */
@@ -45,13 +46,16 @@
 					<a class="nav-link" th:href="@{/todo/entry}">作業登録</a>
 				</li>
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
+						role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<span sec:authentication="principal.fullname"></span>さん
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="../login/logout.php">ログアウト</a>
+						<form method="post" th:action="@{/logout}">
+							<button class="dropdown-item" type="submit">
+								ログアウト
+							</button>
+						</form>
 					</div>
 				</li>
 			</ul>
@@ -89,10 +93,6 @@
 							<input type="hidden" name="itemId" th:value="${item.id}">
 							<button class="btn btn-primary my-0" type="submit">完了</button>
 						</form>
-<!--						<form action="./complete.php" method="post" class="my-sm-1">-->
-<!--							<input type="hidden" name="item_id" value="1">-->
-<!--							<button class="btn btn-primary my-0" type="submit">完了</button>-->
-<!--						</form>-->
 						<a class="btn btn-success my-0" th:href="@{'todo/edit/' + ${item.id}}">
 							修正
 						</a>
@@ -103,33 +103,18 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<!-- 検索結果がある場合に「戻る」ボタンを表示 -->
+<!--		<div th:if="${isSearch}" class="row">-->
+<!--			<div class="col">-->
+<!--				<form>-->
+<!--					<div class="goback">-->
+<!--						<input class="btn btn-primary my-0" type="button" value="戻る" onclick="location.href='/todo';">-->
+<!--					</div>-->
+<!--				</form>-->
+<!--			</div>-->
+<!--		</div>-->
 	</div>
-    <!-- コンテナ ここまで -->
-
-	<form method="post" th:action="@{/logout}">
-		<button class="btn btn-link pull-right navbar-brand" type="submit">
-			ログアウト
-		</button>
-	</form>
-</body>
-
-		
-		
-
-<!--        <?php if ($isSearch) : ?>-->
-<!--             検索のとき、戻るボタンを表示する -->
-<!--            <div class="row">-->
-<!--                <div class="col">-->
-<!--                    <form>-->
-<!--                        <div class="goback">-->
-<!--                            <input class="btn btn-primary my-0" type="button" value="戻る" onclick="location.href='./';">-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        <?php endif ?>-->
-
-    </div>
-    <!-- コンテナ ここまで -->
+	<!-- コンテナ ここまで -->
 </body>
 </html>
