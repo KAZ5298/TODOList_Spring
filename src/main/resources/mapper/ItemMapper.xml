@@ -51,10 +51,10 @@
 			#{itemName},
 			CURDATE(),
 			#{expireDate},
-			<if test="isFinished == 1">
+			<if test="isFinished == true">
 				CURDATE(),
 			</if>
-			<if test="isFinished == 0">
+			<if test="isFinished == false">
 				null,
 			</if>
 			0

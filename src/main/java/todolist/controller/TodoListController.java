@@ -69,17 +69,23 @@ public class TodoListController {
 	
 	// 作業修正画面表示
 	@GetMapping("/todo/edit/{id}")
-	public String getTodoEdit(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
+	public String getTodoEdit(Model model, @PathVariable("id") Integer id) {
 		
 		List<User> userList = userService.getUsers();
-		
 		model.addAttribute("userList", userList);
 		
 		log.info(userList.toString());
 		
 		Item item = itemService.getItemOne(id);
 		
-		todoListForm = modelMapper.map(item, TodoListForm.class);
+		if (item == null) {
+			// アイテムが見つからない場合の処理
+			return "redirect:/todo";
+		}
+		
+		TodoListForm todoListForm = modelMapper.map(item, TodoListForm.class);
+		// finishedDate が null でない場合に isFinished を true に設定
+		todoListForm.setIsFinished(item.getFinishedDate() != null);
 		
 		model.addAttribute("todoListForm", todoListForm);
 		
@@ -98,7 +104,7 @@ public class TodoListController {
 			item.setItemName(todoListForm.getItemName());
 			item.setUserId(todoListForm.getUserId());
 			item.setExpireDate(todoListForm.getExpireDate());
-			item.setIsFinished(todoListForm.getIsFinished());
+			item.setIsFinished(todoListForm.getIsFinished() != null ? todoListForm.getIsFinished() : false);
 			
 			itemService.editItem(item);
 		}
@@ -108,17 +114,21 @@ public class TodoListController {
 	
 	// 作業削除画面表示
 	@GetMapping("/todo/delete/{id}")
-	public String getTodoDelete(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
-		
-		List<User> userList = userService.getUsers();
-		
-		model.addAttribute("userList", userList);
-		
-		log.info(userList.toString());
+	public String getTodoDelete(Model model, @PathVariable("id") Integer id) {
 		
 		Item item = itemService.getItemOne(id);
 		
-		todoListForm = modelMapper.map(item, TodoListForm.class);
+		if (item == null) {
+			// アイテムが見つからない場合の処理
+			return "redirect:/todo";
+		}
+		
+		TodoListForm todoListForm = modelMapper.map(item, TodoListForm.class);
+		// finishedDate が null でない場合に isFinished を true に設定
+		todoListForm.setIsFinished(item.getFinishedDate() != null);
+		
+		// Userオブジェクトをセット
+		todoListForm.setUser(item.getUser());
 		
 		model.addAttribute("todoListForm", todoListForm);
 		

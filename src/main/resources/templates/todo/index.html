@@ -39,8 +39,8 @@
 		
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" th:href="@{/todo}">作業一覧 <span class="sr-only">(current)</span></a>
+				<li class="nav-item">
+					<a class="nav-link active" th:href="@{/todo}">作業一覧 <span class="visually-hidden">(current)</span></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/todo/entry}">作業登録</a>
@@ -82,12 +82,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="item: ${itemList}" class="align-middle">
+				<tr th:each="item: ${itemList}"
+					th:classappend="${item.expireDate < #dates.createNow()} ? 'table-danger' : ''"
+					class="align-middle">
 					<td th:text="${item.itemName}" class="align-middle"></td>
 					<td th:text="${item.user.familyName} + ' ' + ${item.user.firstName}" class="align-middle"></td>
 					<td th:text="${#dates.format(item.registrationDate, 'yyyy/MM/dd')}" class="align-middle"></td>
 					<td th:text="${#dates.format(item.expireDate, 'yyyy/MM/dd')}" class="align-middle"></td>
-					<td th:text="${#dates.format(item.finishedDate, 'yyyy/MM/dd')}" class="align-middle"></td>
+					<td th:text="${item.finishedDate != null ? #dates.format(item.finishedDate, 'yyyy/MM/dd') : '未'}"
+						 class="align-middle"></td>
 					<td class="align-middle button">
 						<form th:action="@{/todo/complete}" method="post" class="my-sm-1">
 							<input type="hidden" name="itemId" th:value="${item.id}">

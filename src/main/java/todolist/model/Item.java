@@ -12,7 +12,7 @@ public class Item {
 	private Date registrationDate;
 	private Date expireDate;
 	private Date finishedDate;
-	private Integer isFinished;
+	private Boolean isFinished;
 	private Integer isDeleted;
 	private User user;
 }

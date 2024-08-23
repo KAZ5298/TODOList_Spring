@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import todolist.model.User;
 
 @Data
 public class TodoListForm {
@@ -22,8 +23,10 @@ public class TodoListForm {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date finishedDate;
 	
-	private Integer isFinished;
+	private Boolean isFinished;
 	
 	private Integer isDeleted;
+	
+	private User user;
 
 }

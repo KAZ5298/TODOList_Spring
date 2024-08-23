@@ -42,8 +42,8 @@
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/todo}">作業一覧</a>
 				</li>
-				<li class="nav-item active">
-					<a class="nav-link" th:href="@{/todo/entry}">作業登録 <span class="sr-only">(current)</span></a>
+				<li class="nav-item">
+					<a class="nav-link active" th:href="@{/todo/entry}">作業登録 <span class="visually-hidden">(current)</span></a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -98,7 +98,7 @@
 					<input type="hidden" th:field="*{id}" />
 					<div class="form-group mb-3">
 						<label for="itemName" th:text="#{itemName}"></label>
-						<input type="text" class="form-control" th:field="*{itemName}" placeholder="作業名">
+						<input type="text" class="form-control" th:field="*{itemName}" placeholder="項目名">
 					</div>
 					<div class="form-group mb-3">
 						<label for="userId" th:text="#{todo.user}"></label>
@@ -112,9 +112,10 @@
 						<input type="date" class="form-control" th:field="*{expireDate}">
 					</div>
 					<div class="form-group form-check mb-3">
-						<input type="hidden" value="0" th:field="*{isFinished}">
-						<input type="checkbox" class="form-check-input" th:field="*{isFinished}" value="1">
-						<label for="isFinished" th:text="#{isFinished}"></label>
+						<input type="hidden" id="hiddenIsFinished" name="isFinished" value="false">
+						<input type="checkbox" id="checkboxIsFinished" class="form-check-input" name="isFinished" value="true"
+							   th:checked="${todoListForm.isFinished}"/>
+						<label for="checkboxIsFinished" th:text="#{isFinished}"></label>
 					</div>
 					
 					<button type="submit" class="btn btn-primary">更新</button>

@@ -42,8 +42,8 @@
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/todo}">作業一覧</a>
 				</li>
-				<li class="nav-item active">
-					<a class="nav-link" th:href="@{/todo/entry}">作業登録 <span class="sr-only">(current)</span></a>
+				<li class="nav-item">
+					<a class="nav-link active" th:href="@{/todo/entry}">作業登録 <span class="visually-hidden">(current)</span></a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
@@ -96,25 +96,25 @@
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6">
 					<form action="/todo/entry" method="post" th:object="${todoListForm}">
-						<div class="form-group">
+						<div class="form-group mb-3">
 							<label for="itemName" th:text="#{itemName}"></label>
 							<input type="text" class="form-control" th:field="*{itemName}">
 						</div>
-						<div class="form-group">
+						<div class="form-group mb-3">
 							<label for="userId" th:text="#{todo.user}"></label>
 							<select class="dropdown form-control" th:field="*{userId}">
 								<option th:value="0">--選択してください--</option>
 								<option th:each="item : ${userList}" th:value="${item.id}" th:text="${item.familyName + ' ' + item.firstName}"></option>
 							</select>
 						</div>
-						<div class="form-group">
+						<div class="form-group mb-3">
 							<label for="expireDate" th:text="#{expireDate}"></label>
 							<input type="date" class="form-control" th:field="*{expireDate}">
 						</div>
-						<div class="form-group">
-							<input type="hidden" id="hiddenIsFinished" name="isFinished" value="0">
-							<input type="checkbox" id="checkboxIsFinished" class="form-check-input" name="isFinished" value="1">
-						    <label for="checkboxIsFinished" th:text="#{isFinished}"></label>
+						<div class="form-group mb-3">
+							<input type="hidden" id="hiddenIsFinished" name="isFinished" value="false">
+							<input type="checkbox" id="checkboxIsFinished" class="form-check-input" name="isFinished" value="true">
+							<label for="checkboxIsFinished" th:text="#{isFinished}"></label>
 						</div>
 						
 						<input type="submit" value="登録" class="btn btn-primary">
