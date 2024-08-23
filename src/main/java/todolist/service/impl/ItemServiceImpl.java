@@ -39,4 +39,9 @@ public class ItemServiceImpl implements ItemService {
 	public void deleteItem(Item item) {
 		mapper.deleteItem(item);
 	}
+	
+	@Override
+	public void completeItem(Item item) {
+		mapper.completeItem(item);
+	}
 }

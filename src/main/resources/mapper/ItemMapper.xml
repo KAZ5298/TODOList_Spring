@@ -32,6 +32,8 @@
 			left join users on todo_items.user_id = users.id
 		where
 			todo_items.is_deleted != 1
+		order by
+			todo_items.expire_date asc
 	</select>
 	
 	<!-- 作業登録 -->
@@ -96,6 +98,16 @@
 			todo_items
 		set
 			is_deleted = 1
+		where
+			id = #{id}
+	</update>
+	
+	<!-- 作業完了 -->
+	<update id="completeItem">
+		update
+			todo_items
+		set
+			finished_date = CURDATE()
 		where
 			id = #{id}
 	</update>

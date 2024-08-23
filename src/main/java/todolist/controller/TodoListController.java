@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 import todolist.form.TodoListForm;
@@ -31,6 +32,7 @@ public class TodoListController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	// 作業一覧画面表示
 	@GetMapping("/todo")
 	public String getTodoList(Model model) {
 		
@@ -42,6 +44,7 @@ public class TodoListController {
 		return "todo/index";
 	}
 	
+	// 作業登録画面表示
 	@GetMapping("/todo/entry")
 	public String getTodoEntry(Model model, @ModelAttribute TodoListForm todoListForm) {
 		
@@ -53,6 +56,7 @@ public class TodoListController {
 		return "todo/entry";
 	}
 	
+	// 作業登録機能
 	@PostMapping("/todo/entry")
 	public String postTodoEntry(Model model, @ModelAttribute TodoListForm todoListForm) {
 		
@@ -63,6 +67,7 @@ public class TodoListController {
 		return "redirect:/todo";
 	}
 	
+	// 作業修正画面表示
 	@GetMapping("/todo/edit/{id}")
 	public String getTodoEdit(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
 		
@@ -83,6 +88,7 @@ public class TodoListController {
 		return "todo/edit";
 	}
 	
+	// 作業修正機能
 	@PostMapping("/todo/edit/{id}")
 	public String postTodoEdit(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
 		
@@ -100,6 +106,7 @@ public class TodoListController {
 		return "redirect:/todo";
 	}
 	
+	// 作業削除画面表示
 	@GetMapping("/todo/delete/{id}")
 	public String getTodoDelete(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
 		
@@ -120,6 +127,7 @@ public class TodoListController {
 		return "todo/delete";
 	}
 	
+	// 作業削除機能
 	@PostMapping("/todo/delete/{id}")
 	public String postTodoDelete(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
 		
@@ -127,6 +135,19 @@ public class TodoListController {
 		
 		if (item != null) {
 			itemService.deleteItem(item);
+		}
+		
+		return "redirect:/todo";
+	}
+	
+	// 作業完了機能
+	@PostMapping("/todo/complete")
+	public String postTodoComplete(Model model, TodoListForm todoListForm, @RequestParam("itemId") Integer id) {
+		
+		Item item = itemService.getItemOne(id);
+		
+		if (item != null) {
+			itemService.completeItem(item);
 		}
 		
 		return "redirect:/todo";

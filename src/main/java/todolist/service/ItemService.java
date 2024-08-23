@@ -16,4 +16,6 @@ public interface ItemService {
 	
 	public void deleteItem(Item item);
 	
+	public void completeItem(Item item);
+	
 }

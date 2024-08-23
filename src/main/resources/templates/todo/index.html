@@ -77,7 +77,6 @@
 					<th scope="col">操作</th>
 				</tr>
 			</thead>
-			
 			<tbody>
 				<tr th:each="item: ${itemList}" class="align-middle">
 					<td th:text="${item.itemName}" class="align-middle"></td>
@@ -86,161 +85,25 @@
 					<td th:text="${#dates.format(item.expireDate, 'yyyy/MM/dd')}" class="align-middle"></td>
 					<td th:text="${#dates.format(item.finishedDate, 'yyyy/MM/dd')}" class="align-middle"></td>
 					<td class="align-middle button">
-						<form action="./complete.php" method="post" class="my-sm-1">
-							<input type="hidden" name="item_id" value="1">
+						<form th:action="@{/todo/complete}" method="post" class="my-sm-1">
+							<input type="hidden" name="itemId" th:value="${item.id}">
 							<button class="btn btn-primary my-0" type="submit">完了</button>
 						</form>
+<!--						<form action="./complete.php" method="post" class="my-sm-1">-->
+<!--							<input type="hidden" name="item_id" value="1">-->
+<!--							<button class="btn btn-primary my-0" type="submit">完了</button>-->
+<!--						</form>-->
 						<a class="btn btn-success my-0" th:href="@{'todo/edit/' + ${item.id}}">
 							修正
 						</a>
-<!--						<form action="edit.php" method="post" class="my-sm-1">-->
-<!--							<input type="hidden" name="item_id" value="1">-->
-<!--							<input class="btn btn-success my-0" type="submit" value="修正">-->
-<!--						</form>-->
 						<a class="btn btn-danger my-0" th:href="@{'todo/delete/' + ${item.id}}">
 							削除
 						</a>
-<!--						<form action="delete.php" method="post" class="my-sm-1">-->
-<!--							<input type="hidden" name="item_id" value="1">-->
-<!--							<input class="btn btn-danger my-0" type="submit" value="削除">-->
-<!--						</form>-->
 					</td>
 				</tr>
-<!--                <tr class="text-danger">-->
-<!--                    <td class="align-middle">-->
-<!--                        テストの項目-->
-<!--                    </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        テスト花子 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-01-13 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-02-12 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        未 </td>-->
-<!--                    <td class="align-middle button">-->
-<!--                        <form action="./complete.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="1">-->
-<!--                            <button class="btn btn-primary my-0" type="submit">完了</button>-->
-<!--                        </form>-->
-<!--                        <form action="edit.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="1">-->
-<!--                            <input class="btn btn-success my-0" type="submit" value="修正">-->
-<!--                        </form>-->
-<!--                        <form action="delete.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="1">-->
-<!--                            <input class="btn btn-danger my-0" type="submit" value="削除">-->
-<!--                        </form>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                <tr class="del">-->
-<!--                    <td class="align-middle">-->
-<!--                        テストの項目２ </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        テスト太郎 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-02-13 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-02-19 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-02-13 </td>-->
-<!--                    <td class="align-middle button">-->
-<!--                        <form action="./complete.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="2">-->
-<!--                            <button class="btn btn-primary my-0" type="submit">完了</button>-->
-<!--                        </form>-->
-<!--                        <form action="edit.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="2">-->
-<!--                            <input class="btn btn-success my-0" type="submit" value="修正">-->
-<!--                        </form>-->
-<!--                        <form action="delete.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="2">-->
-<!--                            <input class="btn btn-danger my-0" type="submit" value="削除">-->
-<!--                        </form>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td class="align-middle">-->
-<!--                        テストの項目３ </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        テスト花子 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-02-13 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-02-24 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        未 </td>-->
-<!--                    <td class="align-middle button">-->
-<!--                        <form action="./complete.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="3">-->
-<!--                            <button class="btn btn-primary my-0" type="submit">完了</button>-->
-<!--                        </form>-->
-<!--                        <form action="edit.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="3">-->
-<!--                            <input class="btn btn-success my-0" type="submit" value="修正">-->
-<!--                        </form>-->
-<!--                        <form action="delete.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="3">-->
-<!--                            <input class="btn btn-danger my-0" type="submit" value="削除">-->
-<!--                        </form>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td class="align-middle">-->
-<!--                        テストの項目４ </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        テスト太郎 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-02-13 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-03-03 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        未 </td>-->
-<!--                    <td class="align-middle button">-->
-<!--                        <form action="./complete.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="4">-->
-<!--                            <button class="btn btn-primary my-0" type="submit">完了</button>-->
-<!--                        </form>-->
-<!--                        <form action="edit.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="4">-->
-<!--                            <input class="btn btn-success my-0" type="submit" value="修正">-->
-<!--                        </form>-->
-<!--                        <form action="delete.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="4">-->
-<!--                            <input class="btn btn-danger my-0" type="submit" value="削除">-->
-<!--                        </form>-->
-<!--                    </td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td class="align-middle">-->
-<!--                        テストの項目５ </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        テスト太郎 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-02-13 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        2020-04-01 </td>-->
-<!--                    <td class="align-middle">-->
-<!--                        未 </td>-->
-<!--                    <td class="align-middle button">-->
-<!--                        <form action="./complete.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="5">-->
-<!--                            <button class="btn btn-primary my-0" type="submit">完了</button>-->
-<!--                        </form>-->
-<!--                        <form action="edit.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="5">-->
-<!--                            <input class="btn btn-success my-0" type="submit" value="修正">-->
-<!--                        </form>-->
-<!--                        <form action="delete.php" method="post" class="my-sm-1">-->
-<!--                            <input type="hidden" name="item_id" value="5">-->
-<!--                            <input class="btn btn-danger my-0" type="submit" value="削除">-->
-<!--                        </form>-->
-<!--                    </td>-->
-<!--                </tr>-->
-            </tbody>
-        </table>
-
-    </div>
+			</tbody>
+		</table>
+	</div>
     <!-- コンテナ ここまで -->
 
 	<form method="post" th:action="@{/logout}">

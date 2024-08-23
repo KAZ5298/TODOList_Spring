@@ -24,4 +24,7 @@ public interface ItemMapper {
 	/** TODOアイテム削除（論理削除） */
 	public void deleteItem(Item item);
 	
+	/** TODOアイテム完了 */
+	public void completeItem(Item item);
+	
 }
