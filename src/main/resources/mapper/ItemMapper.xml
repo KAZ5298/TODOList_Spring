@@ -76,12 +76,14 @@
 			item_name = #{itemName},
 			user_id = #{userId},
 			expire_date = #{expireDate},
-			<if test="isFinished == 1">
-				CURDATE()
-			</if>
-			<if test="isFinished == 0">
-				null
-			</if>
+			<choose>
+				<when test="isFinished == 1">
+					finished_date = CURDATE()
+				</when>
+				<otherwise>
+					finished_date = null
+				</otherwise>
+			</choose>
 		where
 			id = #{id}
 	</update>

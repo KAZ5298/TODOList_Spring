@@ -86,10 +86,16 @@ public class TodoListController {
 	@PostMapping("todo/edit/{id}")
 	public String postTodoEdit(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
 		
-		itemService.editItem(todoListForm.getItemName(),
-				todoListForm.getUserId(),
-				todoListForm.getExpireDate(),
-				todoListForm.getIsFinished());
+		Item item = itemService.getItemOne(id);
+		
+		if (item != null) {
+			item.setItemName(todoListForm.getItemName());
+			item.setUserId(todoListForm.getUserId());
+			item.setExpireDate(todoListForm.getExpireDate());
+			item.setIsFinished(todoListForm.getIsFinished());
+			
+			itemService.editItem(item);
+		}
 		
 		return "redirect:/todo";
 	}
