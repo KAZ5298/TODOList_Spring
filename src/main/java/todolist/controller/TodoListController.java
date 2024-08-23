@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ public class TodoListController {
 	public String getTodoList(Model model) {
 		
 		List<Item> itemList = itemService.getAllItems();
-		model.addAttribute(itemList);
+		model.addAttribute("itemList", itemList);
 		
 		log.info(itemList.toString());
 		
@@ -58,6 +59,37 @@ public class TodoListController {
 		Item item = modelMapper.map(todoListForm, Item.class);
 		
 		itemService.entryItem(item);
+		
+		return "redirect:/todo";
+	}
+	
+	@GetMapping("/todo/edit/{id}")
+	public String getTodoEdit(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
+		
+		List<User> userList = userService.getUsers();
+		
+		model.addAttribute("userList", userList);
+		
+		log.info(userList.toString());
+		
+		Item item = itemService.getItemOne(id);
+		
+		todoListForm = modelMapper.map(item, TodoListForm.class);
+		
+		model.addAttribute("todoListForm", todoListForm);
+		
+		log.info(todoListForm.toString());
+		
+		return "todo/edit";
+	}
+	
+	@PostMapping("todo/edit/{id}")
+	public String postTodoEdit(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
+		
+		itemService.editItem(todoListForm.getItemName(),
+				todoListForm.getUserId(),
+				todoListForm.getExpireDate(),
+				todoListForm.getIsFinished());
 		
 		return "redirect:/todo";
 	}

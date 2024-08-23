@@ -4,33 +4,32 @@
 
 <mapper namespace="todolist.repository.ItemMapper">
 
-<!-- todo_items -->
-<resultMap type="todolist.model.Item" id="item">
-	<id column="id" property="id" />
-	<result column="user_id" property="userId" />
-	<result column="item_name" property="itemName" />
-	<result column="registration_date" property="registrationDate" />
-	<result column="expire_date" property="expireDate" />
-	<result column="finished_date" property="finishedDate" />
-	<result column="isDeleted" property="isDeleted" />
-	<association property="user" resultMap="user" />
-</resultMap>
-
-<!-- users -->
-<resultMap type="todolist.model.User" id="user">
-	<id column="id" property="id" />
-	<result column="family_name" property="familyName" />
-	<result column="first_name" property="firstName" />
-</resultMap>
+	<!-- todo_items -->
+	<resultMap type="todolist.model.Item" id="item">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="item_name" property="itemName" />
+		<result column="registration_date" property="registrationDate" />
+		<result column="expire_date" property="expireDate" />
+		<result column="finished_date" property="finishedDate" />
+		<result column="isDeleted" property="isDeleted" />
+		<association property="user" resultMap="user" />
+	</resultMap>
+	
+	<!-- users -->
+	<resultMap type="todolist.model.User" id="user">
+		<id column="id" property="id" />
+		<result column="family_name" property="familyName" />
+		<result column="first_name" property="firstName" />
+	</resultMap>
 
 	<!-- 作業一覧取得 -->
 	<select id="getAllItems" resultMap="item">
-			select
-				*
-			from
-				todo_items
-				left join users
-					on todo_items.user_id = users.id
+		select
+			*
+		from
+			todo_items
+			left join users on todo_items.user_id = users.id
 	</select>
 	
 	<!-- 作業登録 -->
@@ -43,19 +42,48 @@
 			finished_date,
 			is_deleted
 		)
-	    VALUES (
-		    #{userId},
-		    #{itemName},
-		    CURDATE(),
-		    #{expireDate},
-		    <if test="isFinished == 1">
-		    	CURDATE(),
-		    </if>
-		    <if test="isFinished == 0">
-		    	null,
-		    </if>
-		    0
+		VALUES (
+			#{userId},
+			#{itemName},
+			CURDATE(),
+			#{expireDate},
+			<if test="isFinished == 1">
+				CURDATE(),
+			</if>
+			<if test="isFinished == 0">
+				null,
+			</if>
+			0
 		)
 	</insert>
+	
+	<!-- 作業1件検索 -->
+	<select id="getItemOne" resultMap="item">
+		select
+			*
+		from
+			todo_items
+			left join users on todo_items.user_id = users.id
+		where
+			todo_items.id = #{id}
+	</select>
+	
+	<!-- 作業内容更新 -->
+	<update id="editItem">
+		update
+			todo_items
+		set
+			item_name = #{itemName},
+			user_id = #{userId},
+			expire_date = #{expireDate},
+			<if test="isFinished == 1">
+				CURDATE()
+			</if>
+			<if test="isFinished == 0">
+				null
+			</if>
+		where
+			id = #{id}
+	</update>
 
 </mapper>

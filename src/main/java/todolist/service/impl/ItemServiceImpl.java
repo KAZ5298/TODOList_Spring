@@ -1,5 +1,6 @@
 package todolist.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +26,16 @@ public class ItemServiceImpl implements ItemService {
 		mapper.entryItem(item);
 	}
 	
+	@Override
+	public Item getItemOne(Integer id) {
+		return mapper.getItemOne(id);
+	}
+	
+	@Override
+	public void editItem(String itemName,
+			Integer userId,
+			Date expireDate,
+			Integer isFinished) {
+		mapper.editItem(itemName, userId, expireDate, isFinished);
+	}
 }

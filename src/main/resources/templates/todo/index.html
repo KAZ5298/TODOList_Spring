@@ -82,18 +82,21 @@
 				<tr th:each="item: ${itemList}" class="align-middle">
 					<td th:text="${item.itemName}" class="align-middle"></td>
 					<td th:text="${item.user.familyName} + ' ' + ${item.user.firstName}" class="align-middle"></td>
-					<td th:text="${#dates.format(item.registrationDate, 'YYYY/MM/dd')}" class="align-middle"></td>
-					<td th:text="${#dates.format(item.expireDate, 'YYYY/MM/dd')}" class="align-middle"></td>
-					<td th:text="${#dates.format(item.finishedDate, 'YYYY/MM/dd')}" class="align-middle"></td>
+					<td th:text="${#dates.format(item.registrationDate, 'yyyy/MM/dd')}" class="align-middle"></td>
+					<td th:text="${#dates.format(item.expireDate, 'yyyy/MM/dd')}" class="align-middle"></td>
+					<td th:text="${#dates.format(item.finishedDate, 'yyyy/MM/dd')}" class="align-middle"></td>
 					<td class="align-middle button">
 						<form action="./complete.php" method="post" class="my-sm-1">
 							<input type="hidden" name="item_id" value="1">
 							<button class="btn btn-primary my-0" type="submit">完了</button>
 						</form>
-						<form action="edit.php" method="post" class="my-sm-1">
-							<input type="hidden" name="item_id" value="1">
-							<input class="btn btn-success my-0" type="submit" value="修正">
-						</form>
+						<a class="btn btn-success my-0" th:href="@{'todo/edit/' + ${item.id}}">
+							修正
+						</a>
+<!--						<form action="edit.php" method="post" class="my-sm-1">-->
+<!--							<input type="hidden" name="item_id" value="1">-->
+<!--							<input class="btn btn-success my-0" type="submit" value="修正">-->
+<!--						</form>-->
 						<form action="delete.php" method="post" class="my-sm-1">
 							<input type="hidden" name="item_id" value="1">
 							<input class="btn btn-danger my-0" type="submit" value="削除">

@@ -88,7 +88,8 @@
 			<div class="row my-2">
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6">
-					<form action="/todo/edit" method="post" th:object="${todoListForm}">
+					<form action="/todo/edit/{id}" method="post" th:object="${todoListForm}">
+						<input type="hidden" th:field="*{id}" />
 						<div class="form-group">
 							<label for="itemName" th:text="#{itemName}"></label>
 							<input type="text" class="form-control" th:field="*{itemName}">
@@ -97,7 +98,7 @@
 							<label for="userId" th:text="#{todo.user}"></label>
 							<select class="dropdown form-control" th:field="*{userId}">
 								<option th:value="0">--選択してください--</option>
-								<option th:each="item : ${userList}" th:value="${item.id}" th:text="${item.firstName + ' ' + item.familyName}"></option>
+								<option th:each="item : ${userList}" th:value="${item.id}" th:text="${item.familyName + ' ' + item.firstName}"></option>
 							</select>
 						</div>
 						<div class="form-group">
