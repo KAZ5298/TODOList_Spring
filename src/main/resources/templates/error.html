@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- CSS -->
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}">
+	<!-- JS -->
+	<script th:src="@{/webjars/popper.js/2.11.7/umd/popper.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.min.js}" defer></script>
+	<title>エラー</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+		<span class="navbar-brand">TODOリスト</span>
+	</nav>
+	
+	<div class="container">
+		<div class="row my-2">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6">
+				<h1>エラー</h1>
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
+		
+		<div class="row my-2">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6">
+				<!-- エラーメッセージ -->
+				<div class="alert alert-danger alert-dismissible fade show">
+					申し訳ございません。<br>エラーが発生しました。
+					<form method="post" th:action="@{/logout}" class="mt-4">
+						<button class="btn btn-danger" type="submit">
+							ログアウト
+						</button>
+					</form>
+				</div>
+				<!-- エラーメッセージ ここまで -->
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
+	</div>
+
+</body>
+
+</html>
