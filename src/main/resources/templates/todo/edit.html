@@ -99,7 +99,6 @@
 						<input type="date" class="form-control" id="expireDate" th:field="*{expireDate}">
 					</div>
 					<div class="form-check mb-3">
-						<input type="hidden" id="hiddenIsFinished" name="isFinished" value="false">
 						<input type="checkbox" class="form-check-input" id="checkboxIsFinished" name="isFinished" value="true"
 							   th:checked="${todoListForm.isFinished}" />
 						<label for="checkboxIsFinished" th:text="#{isFinished}"></label>
