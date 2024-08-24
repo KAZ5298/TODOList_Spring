@@ -52,11 +52,11 @@
 			CURDATE(),
 			#{expireDate},
 			<if test="isFinished == true">
-				CURDATE(),
-			</if>
-			<if test="isFinished == false">
-				null,
-			</if>
+	            CURDATE(),
+	        </if>
+	        <if test="isFinished == false">
+	            null,
+	        </if>
 			0
 		)
 	</insert>

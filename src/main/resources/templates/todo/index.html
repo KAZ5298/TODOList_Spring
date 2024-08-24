@@ -59,10 +59,10 @@
 					</div>
 				</li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0" action="./" method="get">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
-					value="">
-				<button class="btn btn-outline-light my-2 my-sm-0" type="submit">検索</button>
+			<form class="d-flex" action="./" method="get">
+				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"
+					   value="">
+				<button class="btn btn-outline-light" type="submit">検索</button>
 			</form>
 		</div>
 	</nav>
@@ -97,10 +97,10 @@
 							<input type="hidden" name="itemId" th:value="${item.id}">
 							<button class="btn btn-primary my-0" type="submit">完了</button>
 						</form>
-						<a class="btn btn-success my-0" th:href="@{'todo/edit/' + ${item.id}}">
+						<a class="btn btn-success my-0" th:href="@{'/todo/edit/' + ${item.id}}">
 							修正
 						</a>
-						<a class="btn btn-danger my-0" th:href="@{'todo/delete/' + ${item.id}}">
+						<a class="btn btn-danger my-0" th:href="@{'/todo/delete/' + ${item.id}}">
 							削除
 						</a>
 					</td>

@@ -1,11 +1,15 @@
 package todolist.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import jakarta.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,7 +50,7 @@ public class TodoListController {
 	
 	// 作業登録画面表示
 	@GetMapping("/todo/entry")
-	public String getTodoEntry(Model model, @ModelAttribute TodoListForm todoListForm) {
+	public String getTodoEntry(@ModelAttribute TodoListForm todoListForm, Model model) {
 		
 		List<User> userList = userService.getUsers();
 		model.addAttribute("userList", userList);
@@ -58,9 +62,26 @@ public class TodoListController {
 	
 	// 作業登録機能
 	@PostMapping("/todo/entry")
-	public String postTodoEntry(Model model, @ModelAttribute TodoListForm todoListForm) {
+	public String postTodoEntry(@ModelAttribute @Valid TodoListForm todoListForm,
+			BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			List<User> userList = userService.getUsers();
+			model.addAttribute("userList", userList);
+			
+			List<String> errorMessages = bindingResult.getAllErrors().stream()
+	                .map(error -> error.getDefaultMessage())
+	                .collect(Collectors.toList());
+	        model.addAttribute("errorMessages", errorMessages);
+	        
+			return "todo/entry";
+		}
+		
+		log.info("TodoListForm isFinished: {}", todoListForm.getIsFinished());
 		
 		Item item = modelMapper.map(todoListForm, Item.class);
+		
+		log.info("Item isFinished: {}", item.getIsFinished());
 		
 		itemService.entryItem(item);
 		
@@ -96,20 +117,41 @@ public class TodoListController {
 	
 	// 作業修正機能
 	@PostMapping("/todo/edit/{id}")
-	public String postTodoEdit(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
-		
-		Item item = itemService.getItemOne(id);
-		
-		if (item != null) {
-			item.setItemName(todoListForm.getItemName());
-			item.setUserId(todoListForm.getUserId());
-			item.setExpireDate(todoListForm.getExpireDate());
-			item.setIsFinished(todoListForm.getIsFinished() != null ? todoListForm.getIsFinished() : false);
-			
-			itemService.editItem(item);
-		}
-		
-		return "redirect:/todo";
+	public String postTodoEdit(@ModelAttribute @Valid TodoListForm todoListForm,
+	                           @PathVariable("id") Integer id, BindingResult bindingResult, Model model) {
+
+	    if (bindingResult.hasErrors()) {
+	        List<User> userList = userService.getUsers();
+	        model.addAttribute("userList", userList);
+
+	        // エラーメッセージをModelに追加
+	        List<String> errorMessages = bindingResult.getAllErrors().stream()
+	                .map(error -> error.getDefaultMessage())
+	                .collect(Collectors.toList());
+	        
+	        // デバッグ用にエラーメッセージをログに出力
+	        System.out.println("Error Messages: " + errorMessages);
+	        
+	        model.addAttribute("errorMessages", errorMessages);
+
+	        model.addAttribute("id", id);
+
+	        // リダイレクトではなく、直接ビューを返す
+	        return "todo/edit";
+	    }
+
+	    // 正常処理
+	    Item item = itemService.getItemOne(id);
+	    if (item != null) {
+	        item.setItemName(todoListForm.getItemName());
+	        item.setUserId(todoListForm.getUserId());
+	        item.setExpireDate(todoListForm.getExpireDate());
+	        item.setIsFinished(todoListForm.getIsFinished() != null ? todoListForm.getIsFinished() : false);
+
+	        itemService.editItem(item);
+	    }
+
+	    return "redirect:/todo";
 	}
 	
 	// 作業削除画面表示

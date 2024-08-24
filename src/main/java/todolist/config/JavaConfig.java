@@ -11,22 +11,42 @@ import todolist.model.Item;
 @Configuration
 public class JavaConfig {
 
-    @Bean
-    public ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
+	@Bean
+	public ModelMapper modelMapper() {
+		ModelMapper modelMapper = new ModelMapper();
 
-        // ItemのuserIdをTodoListFormのuserIdにマッピング
-        modelMapper.addMappings(new PropertyMap<Item, TodoListForm>() {
-            @Override
-            protected void configure() {
-                // ItemのuserIdを直接マッピング
-                map().setUserId(source.getUserId());
-                // Userオブジェクトのidを直接マッピング
-                // この設定は競合を避けるためにコメントアウト
-                // map().setUserId(source.getUser() != null ? source.getUser().getId() : null);
-            }
-        });
+		// ItemからTodoListFormへのマッピング設定
+		modelMapper.addMappings(new PropertyMap<Item, TodoListForm>() {
+			@Override
+			protected void configure() {
+				map().setId(source.getId());
+				map().setUserId(source.getUserId());
+				map().setItemName(source.getItemName());
+				map().setRegistrationDate(source.getRegistrationDate());
+				map().setExpireDate(source.getExpireDate());
+				map().setFinishedDate(source.getFinishedDate());
+				map().setIsFinished(source.getIsFinished());
+				map().setIsDeleted(source.getIsDeleted());
+				map().setUser(source.getUser());
+			}
+		});
 
-        return modelMapper;
-    }
+		// TodoListFormからItemへのマッピング設定
+		modelMapper.addMappings(new PropertyMap<TodoListForm, Item>() {
+			@Override
+			protected void configure() {
+				map().setId(source.getId());
+				map().setUserId(source.getUserId());
+				map().setItemName(source.getItemName());
+				map().setRegistrationDate(source.getRegistrationDate());
+				map().setExpireDate(source.getExpireDate());
+				map().setFinishedDate(source.getFinishedDate());
+				map().setIsFinished(source.getIsFinished());
+				map().setIsDeleted(source.getIsDeleted());
+				map().setUser(source.getUser());
+			}
+		});
+
+		return modelMapper;
+	}
 }
