@@ -36,5 +36,7 @@ public class TodoListForm {
     private Integer isDeleted;
     
     private User user;
+    
+    private String searchItem;
 
 }

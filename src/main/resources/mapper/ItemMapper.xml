@@ -45,6 +45,33 @@
 			todo_items.expire_date asc
 	</select>
 	
+	<!-- 作業一覧取得（検索） -->
+	<select id="searchItems" resultMap="item">
+		select
+			todo_items.id,
+			todo_items.user_id,
+			todo_items.item_name,
+			todo_items.registration_date,
+			todo_items.expire_date,
+			todo_items.finished_date,
+			todo_items.is_deleted,
+			users.id as user_id,
+			users.family_name,
+			users.first_name
+		from
+			todo_items
+			left join users on todo_items.user_id = users.id
+		where
+			todo_items.is_deleted != 1
+			and (
+				todo_items.item_name like concat('%', #{searchItem}, '%')
+				or users.family_name like concat('%', #{searchItem}, '%')
+				or users.first_name like concat('%', #{searchItem}, '%')
+			)
+		order by
+			todo_items.expire_date asc
+	</select>
+	
 	<!-- 作業登録 -->
 	<insert id="entryItem">
 		insert into todo_items (

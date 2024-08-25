@@ -27,4 +27,7 @@ public interface ItemMapper {
 	/** TODOアイテム完了 */
 	public void completeItem(Item item);
 	
+	/** 検索したTODOアイテム一覧取得 */
+	public List<Item> searchItems(String searchItem);
+	
 }

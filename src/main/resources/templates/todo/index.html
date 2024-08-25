@@ -59,9 +59,8 @@
 					</div>
 				</li>
 			</ul>
-			<form class="d-flex" action="./" method="get">
-				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"
-					   value="">
+			<form class="d-flex" th:action="@{/todo}" method="post" th:object="${todoListForm}">
+				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searchItem" value="">
 				<button class="btn btn-outline-light" type="submit">検索</button>
 			</form>
 		</div>

@@ -44,4 +44,9 @@ public class ItemServiceImpl implements ItemService {
 	public void completeItem(Item item) {
 		mapper.completeItem(item);
 	}
+	
+	@Override
+	public List<Item> searchItems(String searchItem) {
+		return mapper.searchItems(searchItem);
+	}
 }
