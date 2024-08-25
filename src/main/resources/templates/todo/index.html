@@ -25,6 +25,33 @@
 		tr.del>td.button {
 			text-decoration: none;
 		}
+		
+		/* ナビゲーションバーの高さを設定 */
+		.navbar {
+			min-height: 56px; /* またはお好みの高さ */
+			display: flex;
+			align-items: center;
+		}
+
+		/* ナビゲーションバー内の検索フォームのスタイル調整 */
+		.navbar .d-flex {
+			align-items: center;
+		}
+		
+		/* 検索フォームの高さ調整 */
+		.form-control {
+			height: calc(1.5em + .75rem + 2px); /* Bootstrapのデフォルトの高さに合わせる */
+		}
+
+		.btn-outline-light {
+			height: calc(1.5em + .75rem + 2px); /* ボタンの高さをフォームと一致させる */
+		}
+		
+		.btn-outline-light {
+			min-width: 70px; /* 最小幅を設定 */
+			padding: 0.375rem 0.75rem; /* 上下のパディングと左右のパディングを調整 */
+			font-size: 1rem; /* フォントサイズを設定 */
+		}
 	</style>
 </head>
 
@@ -90,7 +117,7 @@
 					<td th:text="${#dates.format(item.registrationDate, 'yyyy/MM/dd')}" class="align-middle"></td>
 					<td th:text="${#dates.format(item.expireDate, 'yyyy/MM/dd')}" class="align-middle"></td>
 					<td th:text="${item.finishedDate != null ? #dates.format(item.finishedDate, 'yyyy/MM/dd') : '未'}"
-						 class="align-middle"></td>
+						class="align-middle"></td>
 					<td class="align-middle button">
 						<form th:action="@{/todo/complete}" method="post" class="my-sm-1">
 							<input type="hidden" name="itemId" th:value="${item.id}">
@@ -108,15 +135,11 @@
 		</table>
 
 		<!-- 検索結果がある場合に「戻る」ボタンを表示 -->
-<!--		<div th:if="${isSearch}" class="row">-->
-<!--			<div class="col">-->
-<!--				<form>-->
-<!--					<div class="goback">-->
-<!--						<input class="btn btn-primary my-0" type="button" value="戻る" onclick="location.href='/todo';">-->
-<!--					</div>-->
-<!--				</form>-->
-<!--			</div>-->
-<!--		</div>-->
+		<div th:if="${isSearch}" class="row my-2">
+			<div class="col">
+				<input class="btn btn-primary" type="button" value="戻る" onclick="location.href='/todo';">
+			</div>
+		</div>
 	</div>
 	<!-- コンテナ ここまで -->
 </body>

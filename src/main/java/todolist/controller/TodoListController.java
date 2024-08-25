@@ -69,6 +69,8 @@ public class TodoListController {
 		
 		log.info(itemList.toString());
 		
+		model.addAttribute("isSearch", true);
+		
 		return "todo/index";
 	}
 	
