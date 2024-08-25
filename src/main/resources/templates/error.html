@@ -31,7 +31,9 @@
 			<div class="col-sm-6">
 				<!-- エラーメッセージ -->
 				<div class="alert alert-danger alert-dismissible fade show">
-					申し訳ございません。<br>エラーが発生しました。
+					<p th:text="${error}"></p>
+					<p th:text="${message}"></p>
+					<hr>
 					<form method="post" th:action="@{/logout}" class="mt-4">
 						<button class="btn btn-danger" type="submit">
 							ログアウト

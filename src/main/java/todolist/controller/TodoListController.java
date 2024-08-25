@@ -112,31 +112,55 @@ public class TodoListController {
 	}
 	
 	// 作業修正機能
+//	@PostMapping("/todo/edit/{id}")
+//	public String postTodoEdit(@ModelAttribute @Valid TodoListForm todoListForm,
+//			@PathVariable("id") Integer id, BindingResult bindingResult, Model model) {
+//		
+//		if (bindingResult.hasErrors()) {
+//			List<User> userList = userService.getUsers();
+//			model.addAttribute("userList", userList);
+//			
+//			// エラーメッセージをModelに追加
+//			List<String> errorMessages = bindingResult.getAllErrors().stream()
+//					.map(error -> error.getDefaultMessage())
+//					.collect(Collectors.toList());
+//			
+//			model.addAttribute("errorMessages", errorMessages);
+//			
+//			return "todo/edit";
+//		}
+//		
+//		// 正常処理
+//		Item item = itemService.getItemOne(id);
+//		if (item != null) {
+//			item.setItemName(todoListForm.getItemName());
+//			item.setUserId(todoListForm.getUserId());
+//			item.setExpireDate(todoListForm.getExpireDate());
+//			item.setIsFinished(todoListForm.getIsFinished() != null ? todoListForm.getIsFinished() : false);
+//
+//			itemService.editItem(item);
+//		}
+//
+//		return "redirect:/todo";
+//	}
+	
 	@PostMapping("/todo/edit/{id}")
 	public String postTodoEdit(@ModelAttribute @Valid TodoListForm todoListForm,
-							   @PathVariable("id") Integer id, BindingResult bindingResult, Model model) {
-
+			@PathVariable("id") Integer id, BindingResult bindingResult, Model model) {
+		
 		if (bindingResult.hasErrors()) {
 			List<User> userList = userService.getUsers();
 			model.addAttribute("userList", userList);
-
+			
 			// エラーメッセージをModelに追加
 			List<String> errorMessages = bindingResult.getAllErrors().stream()
 					.map(error -> error.getDefaultMessage())
 					.collect(Collectors.toList());
-			
-			// デバッグ用にエラーメッセージをログに出力
-			System.out.println("Error Messages: " + errorMessages);
-			
 			model.addAttribute("errorMessages", errorMessages);
-
-			model.addAttribute("id", id);
-
-			// リダイレクトではなく、直接ビューを返す
+			
 			return "todo/edit";
 		}
-
-		// 正常処理
+		
 		Item item = itemService.getItemOne(id);
 		if (item != null) {
 			item.setItemName(todoListForm.getItemName());

@@ -26,7 +26,16 @@
 	<!-- 作業一覧取得 -->
 	<select id="getAllItems" resultMap="item">
 		select
-			*
+			todo_items.id,
+			todo_items.user_id,
+			todo_items.item_name,
+			todo_items.registration_date,
+			todo_items.expire_date,
+			todo_items.finished_date,
+			todo_items.is_deleted,
+			users.id as user_id,
+			users.family_name,
+			users.first_name
 		from
 			todo_items
 			left join users on todo_items.user_id = users.id
@@ -51,12 +60,14 @@
 			#{itemName},
 			CURDATE(),
 			#{expireDate},
-			<if test="isFinished == true">
-	            CURDATE(),
-	        </if>
-	        <if test="isFinished == false">
-	            null,
-	        </if>
+			<choose>
+				<when test="isFinished">
+					CURDATE(),
+				</when>
+				<otherwise>
+					null,
+				</otherwise>
+			</choose>
 			0
 		)
 	</insert>
@@ -80,12 +91,13 @@
 			item_name = #{itemName},
 			user_id = #{userId},
 			expire_date = #{expireDate},
+			finished_date = 
 			<choose>
-				<when test="isFinished == 1">
-					finished_date = CURDATE()
+				<when test="isFinished">
+					CURDATE()
 				</when>
 				<otherwise>
-					finished_date = null
+					null
 				</otherwise>
 			</choose>
 		where
