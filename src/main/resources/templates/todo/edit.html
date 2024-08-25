@@ -62,18 +62,18 @@
 		</div>
 		
 		<!-- エラーメッセージ -->
-<!--		<div class="row my-2">-->
-<!--			<div class="col-sm-3"></div>-->
-<!--			<div class="col-sm-6 alert alert-danger alert-dismissible fade show" th:if="${errorMessages != null}">-->
-<!--				<ul>-->
-<!--					<li th:each="message : ${errorMessages}" class="custom-list-item">-->
-<!--						<p class="text-danger" th:text="${message}"></p>-->
-<!--					</li>-->
-<!--				</ul>-->
-<!--				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
-<!--			</div>-->
-<!--			<div class="col-sm-3"></div>-->
-<!--		</div>-->
+		<div class="row my-2">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6 alert alert-danger alert-dismissible fade show" th:if="${errorMessages != null}">
+				<ul>
+					<li th:each="message : ${errorMessages}" class="custom-list-item">
+						<p class="text-danger" th:text="${message}"></p>
+					</li>
+				</ul>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
 		<!-- エラーメッセージ ここまで -->
 		
 		<!-- 入力フォーム -->
@@ -82,60 +82,27 @@
 			<div class="col-sm-6">
 				<form th:action="@{/todo/edit/{id}(id=${todoListForm.id})}" method="post" th:object="${todoListForm}">
 					<input type="hidden" th:field="*{id}" />
-<!--					<div class="form-group mb-3">-->
-<!--						<label for="itemName" th:text="#{itemName}"></label>-->
-<!--						<input type="text" class="form-control" id="itemName" th:field="*{itemName}">-->
-<!--					</div>-->
-<!--					<div class="form-group mb-3">-->
-<!--						<label for="userId" th:text="#{todo.user}"></label>-->
-<!--						<select class="form-select" id="userId" th:field="*{userId}">-->
-<!--							<option th:value="null">--選択してください--</option>-->
-<!--							<option th:each="item : ${userList}" th:value="${item.id}"-->
-<!--									th:text="${item.familyName + ' ' + item.firstName}"></option>-->
-<!--						</select>-->
-<!--					</div>-->
-<!--					<div class="form-group mb-3">-->
-<!--						<label for="expireDate" th:text="#{expireDate}"></label>-->
-<!--						<input type="date" class="form-control" id="expireDate" th:field="*{expireDate}">-->
-<!--					</div>-->
-<!--					<div class="form-check mb-3">-->
-<!--						<input type="checkbox" class="form-check-input" id="checkboxIsFinished" name="isFinished" value="true"-->
-<!--							   th:checked="${todoListForm.isFinished}" />-->
-<!--						<label for="checkboxIsFinished" th:text="#{isFinished}"></label>-->
-<!--					</div>-->
-					<!-- itemName -->
-                    <div class="form-group mb-3">
-                        <label for="itemName" th:text="#{itemName}"></label>
-                        <input type="text" class="form-control" id="itemName" th:field="*{itemName}">
-                        <div class="text-danger" th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}"></div>
-                    </div>
-                    
-                    <!-- userId -->
-                    <div class="form-group mb-3">
-                        <label for="userId" th:text="#{todo.user}"></label>
-                        <select class="form-select" id="userId" th:field="*{userId}">
-                            <option th:value="null">--選択してください--</option>
-                            <option th:each="item : ${userList}" th:value="${item.id}"
-                                    th:text="${item.familyName + ' ' + item.firstName}"></option>
-                        </select>
-                        <div class="text-danger" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></div>
-                    </div>
-                    
-                    <!-- expireDate -->
-                    <div class="form-group mb-3">
-                        <label for="expireDate" th:text="#{expireDate}"></label>
-                        <input type="date" class="form-control" id="expireDate" th:field="*{expireDate}">
-                        <div class="text-danger" th:if="${#fields.hasErrors('expireDate')}" th:errors="*{expireDate}"></div>
-                    </div>
-                    
-                    <!-- isFinished -->
-                    <div class="form-check mb-3">
-                        <input type="checkbox" class="form-check-input" id="checkboxIsFinished" name="isFinished" value="true"
-                               th:checked="${todoListForm.isFinished}" />
-                        <label for="checkboxIsFinished" th:text="#{isFinished}"></label>
-                        <div class="text-danger" th:if="${#fields.hasErrors('isFinished')}" th:errors="*{isFinished}"></div>
-                    </div>
-					
+					<div class="form-group mb-3">
+						<label for="itemName" th:text="#{itemName}"></label>
+						<input type="text" class="form-control" id="itemName" th:field="*{itemName}">
+					</div>
+					<div class="form-group mb-3">
+						<label for="userId" th:text="#{todo.user}"></label>
+						<select class="form-select" id="userId" th:field="*{userId}">
+							<option th:value="null">--選択してください--</option>
+							<option th:each="item : ${userList}" th:value="${item.id}"
+									th:text="${item.familyName + ' ' + item.firstName}"></option>
+						</select>
+					</div>
+					<div class="form-group mb-3">
+						<label for="expireDate" th:text="#{expireDate}"></label>
+						<input type="date" class="form-control" id="expireDate" th:field="*{expireDate}">
+					</div>
+					<div class="form-check mb-3">
+						<input type="checkbox" class="form-check-input" id="checkboxIsFinished" name="isFinished" value="true"
+							   th:checked="${todoListForm.isFinished}" />
+						<label for="checkboxIsFinished" th:text="#{isFinished}"></label>
+					</div>
 					<input type="submit" value="更新" class="btn btn-primary">
 					<input type="button" value="キャンセル" class="btn btn-outline-primary" onclick="location.href='/todo';">
 				</form>
