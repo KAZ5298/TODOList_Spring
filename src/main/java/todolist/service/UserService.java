@@ -5,8 +5,9 @@ import java.util.List;
 import todolist.model.User;
 
 public interface UserService {
-	
-	public User getLoginUser(String user);
-	
-	public List<User> getUsers();
+    
+    public User getLoginUser(String user);
+    
+    public List<User> getUsers();
+    
 }

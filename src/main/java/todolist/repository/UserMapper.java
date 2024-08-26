@@ -8,10 +8,10 @@ import todolist.model.User;
 
 @Mapper
 public interface UserMapper {
-	
-	/** ログインユーザー情報取得 */
-	public User findLoginUser(String user);
-	
-	/** ユーザー一覧取得 */
-	public List<User> getUsers();
+    
+    /** ログインユーザー情報取得 */
+    public User findLoginUser(String user);
+    
+    /** ユーザー一覧取得 */
+    public List<User> getUsers();
 }

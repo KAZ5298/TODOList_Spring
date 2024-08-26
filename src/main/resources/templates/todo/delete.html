@@ -1,98 +1,98 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- CSS -->
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}">
-	<!-- JS -->
-	<script th:src="@{/webjars/popper.js/2.11.7/umd/popper.min.js}" defer></script>
-	<script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.min.js}" defer></script>
-	<title>削除確認</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}">
+    <!-- JS -->
+    <script th:src="@{/webjars/popper.js/2.11.7/umd/popper.min.js}" defer></script>
+    <script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.min.js}" defer></script>
+    <title>削除確認</title>
 </head>
 
 <body>
-	<!-- ナビゲーション -->
-	<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-	    <span class="navbar-brand">TODOリスト</span>
-	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-	        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="navbar-toggler-icon"></span>
-	    </button>
-	    
-	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	        <ul class="navbar-nav">
-	            <li class="nav-item">
-	                <a class="nav-link" th:href="@{/todo}">作業一覧</a>
-	            </li>
-	            <li class="nav-item">
-	                <a class="nav-link" th:href="@{/todo/entry}">作業登録</a>
-	            </li>
-	        </ul>
-	        
-	        <div class="ms-auto">
-	            <ul class="navbar-nav">
-	                <li class="nav-item dropdown">
-	                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
-	                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	                        <span sec:authentication="principal.fullname"></span>さん
-	                    </a>
-	                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-	                        <form method="post" th:action="@{/logout}">
-	                            <button class="dropdown-item" type="submit">
-	                                ログアウト
-	                            </button>
-	                        </form>
-	                    </div>
-	                </li>
-	            </ul>
-	        </div>
-	    </div>
-	</nav>
-	<!-- ナビゲーション ここまで -->
+    <!-- ナビゲーション -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <span class="navbar-brand">TODOリスト</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/todo}">作業一覧</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/todo/entry}">作業登録</a>
+                </li>
+            </ul>
+            
+            <div class="ms-auto">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span sec:authentication="principal.fullname"></span>さん
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <form method="post" th:action="@{/logout}">
+                                <button class="dropdown-item" type="submit">
+                                    ログアウト
+                                </button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- ナビゲーション ここまで -->
 
-	<!-- コンテナ -->
-	<div class="container">
-		<div class="row my-2">
-			<div class="col-sm-3"></div>
-			<div class="col-sm-6 alert alert-info text-center">
-				下記の項目を削除します。よろしいですか？
-			</div>
-			<div class="col-sm-3"></div>
-		</div>
-		
-		<!-- 入力フォーム -->
-		<div class="row my-2">
-			<div class="col-sm-3"></div>
-			<div class="col-sm-6">
-				<form th:action="@{/todo/delete/{id}(id=${todoListForm.id})}" method="post" th:object="${todoListForm}">
-					<input type="hidden" th:field="*{id}" />
-					<div class="mb-3">
-						<label for="itemName" th:text="#{itemName}"></label>
-						<input type="text" class="form-control" th:field="*{itemName}" disabled>
-					</div>
-					<div class="mb-3">
-						<label for="userId" th:text="#{todo.user}"></label>
-						<input type="text" class="form-control" th:value="${todoListForm.user.familyName} + ' ' + ${todoListForm.user.firstName}" disabled>
-					</div>
-					<div class="mb-3">
-						<label for="expireDate" th:text="#{expireDate}"></label>
-						<input type="date" class="form-control" th:field="*{expireDate}" disabled>
-					</div>
-					<div class="form-check mb-3">
-						<input type="checkbox" id="checkboxIsFinished" class="form-check-input" name="isFinished" th:checked="${todoListForm.isFinished}" disabled/>
-						<label for="checkboxIsFinished" th:text="#{isFinished}"></label>
-					</div>
-					
-					<button type="submit" class="btn btn-danger">削除</button>
-					<button type="button" class="btn btn-outline-primary" onclick="location.href='/todo';">キャンセル</button>
-				</form>
-			</div>
-			<div class="col-sm-3"></div>
-		</div>
-		<!-- 入力フォーム ここまで -->
-	</div>
-	<!-- コンテナ ここまで -->
+    <!-- コンテナ -->
+    <div class="container">
+        <div class="row my-2">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 alert alert-info text-center">
+                下記の項目を削除します。よろしいですか？
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        
+        <!-- 入力フォーム -->
+        <div class="row my-2">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <form th:action="@{/todo/delete/{id}(id=${todoListForm.id})}" method="post" th:object="${todoListForm}">
+                    <input type="hidden" th:field="*{id}" />
+                    <div class="mb-3">
+                        <label for="itemName" th:text="#{itemName}"></label>
+                        <input type="text" class="form-control" th:field="*{itemName}" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userId" th:text="#{todo.user}"></label>
+                        <input type="text" class="form-control" th:value="${todoListForm.user.familyName} + ' ' + ${todoListForm.user.firstName}" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="expireDate" th:text="#{expireDate}"></label>
+                        <input type="date" class="form-control" th:field="*{expireDate}" disabled>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" id="checkboxIsFinished" class="form-check-input" name="isFinished" th:checked="${todoListForm.isFinished}" disabled/>
+                        <label for="checkboxIsFinished" th:text="#{isFinished}"></label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-danger">削除</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="location.href='/todo';">キャンセル</button>
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <!-- 入力フォーム ここまで -->
+    </div>
+    <!-- コンテナ ここまで -->
 </body>
 </html>

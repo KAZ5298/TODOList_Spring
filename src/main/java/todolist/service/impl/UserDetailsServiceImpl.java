@@ -17,35 +17,35 @@ import todolist.service.UserService;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	
-	@Autowired
-	private UserService service;
-	
-	@Override
-	public UserDetails loadUserByUsername(String username)
-		throws UsernameNotFoundException {
-		
-		todolist.model.User loginUser = service.getLoginUser(username);
-		
-		if (loginUser == null) {
+    
+    @Autowired
+    private UserService service;
+    
+    @Override
+    public UserDetails loadUserByUsername(String username)
+        throws UsernameNotFoundException {
+        
+        todolist.model.User loginUser = service.getLoginUser(username);
+        
+        if (loginUser == null) {
             throw new UsernameNotFoundException("ユーザーが見つかりません");
         }
-
+        
         if (loginUser.getIsDeleted() == 1) {
             throw new UsernameNotFoundException("削除されたユーザーです");
         }
-		
-		GrantedAuthority authority = new SimpleGrantedAuthority(String.valueOf(loginUser.getIsAdmin()));
-		List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(authority);
-		
-//		UserDetails userDetails = (UserDetails) new User(loginUser.getUser(),
-//				loginUser.getPass(),
-//				authorities);
-		
-		UserDetails userDetails = new LoginUserDetails(loginUser);
-		
-		return userDetails;
-	}
-	
+        
+        GrantedAuthority authority = new SimpleGrantedAuthority(String.valueOf(loginUser.getIsAdmin()));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(authority);
+        
+//        UserDetails userDetails = (UserDetails) new User(loginUser.getUser(),
+//                loginUser.getPass(),
+//                authorities);
+        
+        UserDetails userDetails = new LoginUserDetails(loginUser);
+        
+        return userDetails;
+    }
+    
 }

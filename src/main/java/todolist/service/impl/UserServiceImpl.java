@@ -11,18 +11,18 @@ import todolist.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
-	@Autowired
-	private UserMapper mapper;
-
-	@Override
-	public User getLoginUser(String user) {
-		return mapper.findLoginUser(user);
-	}
-	
-	@Override
-	public List<User> getUsers() {
-		return mapper.getUsers();
-	}
-	
+    
+    @Autowired
+    private UserMapper mapper;
+    
+    @Override
+    public User getLoginUser(String user) {
+        return mapper.findLoginUser(user);
+    }
+    
+    @Override
+    public List<User> getUsers() {
+        return mapper.getUsers();
+    }
+    
 }

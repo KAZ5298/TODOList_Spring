@@ -1,154 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="todolist.repository.ItemMapper">
 
-	<!-- todo_items -->
-	<resultMap type="todolist.model.Item" id="item">
-		<id column="id" property="id" />
-		<result column="user_id" property="userId" />
-		<result column="item_name" property="itemName" />
-		<result column="registration_date" property="registrationDate" />
-		<result column="expire_date" property="expireDate" />
-		<result column="finished_date" property="finishedDate" />
-		<result column="is_deleted" property="isDeleted" />
-		<association property="user" resultMap="user" />
-	</resultMap>
-	
-	<!-- users -->
-	<resultMap type="todolist.model.User" id="user">
-		<id column="id" property="id" />
-		<result column="family_name" property="familyName" />
-		<result column="first_name" property="firstName" />
-	</resultMap>
+    <!-- todo_items -->
+    <resultMap type="todolist.model.Item" id="item">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="item_name" property="itemName" />
+        <result column="registration_date" property="registrationDate" />
+        <result column="expire_date" property="expireDate" />
+        <result column="finished_date" property="finishedDate" />
+        <result column="is_deleted" property="isDeleted" />
+        <association property="user" resultMap="user" />
+    </resultMap>
+    
+    <!-- users -->
+    <resultMap type="todolist.model.User" id="user">
+        <id column="id" property="id" />
+        <result column="family_name" property="familyName" />
+        <result column="first_name" property="firstName" />
+    </resultMap>
 
-	<!-- 作業一覧取得 -->
-	<select id="getAllItems" resultMap="item">
-		select
-			todo_items.id,
-			todo_items.user_id,
-			todo_items.item_name,
-			todo_items.registration_date,
-			todo_items.expire_date,
-			todo_items.finished_date,
-			todo_items.is_deleted,
-			users.id as user_id,
-			users.family_name,
-			users.first_name
-		from
-			todo_items
-			left join users on todo_items.user_id = users.id
-		where
-			todo_items.is_deleted != 1
-		order by
-			todo_items.expire_date asc
-	</select>
-	
-	<!-- 作業一覧取得（検索） -->
-	<select id="searchItems" resultMap="item">
-		select
-			todo_items.id,
-			todo_items.user_id,
-			todo_items.item_name,
-			todo_items.registration_date,
-			todo_items.expire_date,
-			todo_items.finished_date,
-			todo_items.is_deleted,
-			users.id as user_id,
-			users.family_name,
-			users.first_name
-		from
-			todo_items
-			left join users on todo_items.user_id = users.id
-		where
-			todo_items.is_deleted != 1
-			and (
-				todo_items.item_name like concat('%', #{searchItem}, '%')
-				or users.family_name like concat('%', #{searchItem}, '%')
-				or users.first_name like concat('%', #{searchItem}, '%')
-			)
-		order by
-			todo_items.expire_date asc
-	</select>
-	
-	<!-- 作業登録 -->
-	<insert id="entryItem">
-		insert into todo_items (
-			user_id,
-			item_name,
-			registration_date,
-			expire_date,
-			finished_date,
-			is_deleted
-		)
-		VALUES (
-			#{userId},
-			#{itemName},
-			CURDATE(),
-			#{expireDate},
-			<choose>
-				<when test="isFinished">
-					CURDATE(),
-				</when>
-				<otherwise>
-					null,
-				</otherwise>
-			</choose>
-			0
-		)
-	</insert>
-	
-	<!-- 作業1件検索 -->
-	<select id="getItemOne" resultMap="item">
-		select
-			*
-		from
-			todo_items
-			left join users on todo_items.user_id = users.id
-		where
-			todo_items.id = #{id}
-	</select>
-	
-	<!-- 作業内容更新 -->
-	<update id="editItem">
-		update
-			todo_items
-		set
-			item_name = #{itemName},
-			user_id = #{userId},
-			expire_date = #{expireDate},
-			finished_date = 
-			<choose>
-				<when test="isFinished">
-					CURDATE()
-				</when>
-				<otherwise>
-					null
-				</otherwise>
-			</choose>
-		where
-			id = #{id}
-	</update>
-	
-	<!-- 作業削除（論理削除） -->
-	<update id="deleteItem">
-		update
-			todo_items
-		set
-			is_deleted = 1
-		where
-			id = #{id}
-	</update>
-	
-	<!-- 作業完了 -->
-	<update id="completeItem">
-		update
-			todo_items
-		set
-			finished_date = CURDATE()
-		where
-			id = #{id}
-	</update>
-
+    <!-- 作業一覧取得 -->
+    <select id="getAllItems" resultMap="item">
+        select
+            todo_items.id,
+            todo_items.user_id,
+            todo_items.item_name,
+            todo_items.registration_date,
+            todo_items.expire_date,
+            todo_items.finished_date,
+            todo_items.is_deleted,
+            users.id as user_id,
+            users.family_name,
+            users.first_name
+        from
+            todo_items
+            left join users on todo_items.user_id = users.id
+        where
+            todo_items.is_deleted != 1
+        order by
+            todo_items.expire_date asc
+    </select>
+    
+    <!-- 作業一覧取得（検索） -->
+    <select id="searchItems" resultMap="item">
+        select
+            todo_items.id,
+            todo_items.user_id,
+            todo_items.item_name,
+            todo_items.registration_date,
+            todo_items.expire_date,
+            todo_items.finished_date,
+            todo_items.is_deleted,
+            users.id as user_id,
+            users.family_name,
+            users.first_name
+        from
+            todo_items
+            left join users on todo_items.user_id = users.id
+        where
+            todo_items.is_deleted != 1
+            and (
+                todo_items.item_name like concat('%', #{searchItem}, '%')
+                or users.family_name like concat('%', #{searchItem}, '%')
+                or users.first_name like concat('%', #{searchItem}, '%')
+            )
+        order by
+            todo_items.expire_date asc
+    </select>
+    
+    <!-- 作業登録 -->
+    <insert id="entryItem">
+        insert into todo_items (
+            user_id,
+            item_name,
+            registration_date,
+            expire_date,
+            finished_date,
+            is_deleted
+        )
+        VALUES (
+            #{userId},
+            #{itemName},
+            CURDATE(),
+            #{expireDate},
+            <choose>
+                <when test="isFinished">
+                    CURDATE(),
+                </when>
+                <otherwise>
+                    null,
+                </otherwise>
+            </choose>
+            0
+        )
+    </insert>
+    
+    <!-- 作業1件検索 -->
+    <select id="getItemOne" resultMap="item">
+        select
+            *
+        from
+            todo_items
+            left join users on todo_items.user_id = users.id
+        where
+            todo_items.id = #{id}
+    </select>
+    
+    <!-- 作業内容更新 -->
+    <update id="editItem">
+        update
+            todo_items
+        set
+            item_name = #{itemName},
+            user_id = #{userId},
+            expire_date = #{expireDate},
+            finished_date = 
+            <choose>
+                <when test="isFinished">
+                    CURDATE()
+                </when>
+                <otherwise>
+                    null
+                </otherwise>
+            </choose>
+        where
+            id = #{id}
+    </update>
+    
+    <!-- 作業削除（論理削除） -->
+    <update id="deleteItem">
+        update
+            todo_items
+        set
+            is_deleted = 1
+        where
+            id = #{id}
+    </update>
+    
+    <!-- 作業完了 -->
+    <update id="completeItem">
+        update
+            todo_items
+        set
+            finished_date = CURDATE()
+        where
+            id = #{id}
+    </update>
+    
 </mapper>

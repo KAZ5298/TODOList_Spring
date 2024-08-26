@@ -20,22 +20,22 @@ import todolist.security.CustomAuthenticationFailureHandler;
 @EnableWebSecurity
 @EnableMethodSecurity   // このアノテーションはこのアプリではなくてよい
 public class SecurityConfig {
-	
-	@Bean
+    
+    @Bean
     public AuthenticationFailureHandler customAuthenticationFailureHandler() {
         return new CustomAuthenticationFailureHandler();
     }
-	
-	@Bean
+    
+    @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    
     @Bean
     MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
         return new MvcRequestMatcher.Builder(introspector);
     }
-
+    
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc) throws Exception {
         
@@ -59,34 +59,13 @@ public class SecurityConfig {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
         );
-
+        
         http.headers(headers -> headers
                 .frameOptions(FrameOptionsConfig::disable)
         );
-
-        // CSRF 対策を無効に設定 (一時的)
-        http.csrf(csrf -> csrf
-                .ignoringRequestMatchers(PathRequest.toH2Console())
-                .disable()
-        );
-
+        
+        
         return http.build();
     }
-//    
-//    @Bean
-//    InMemoryUserDetailsManager userDetailsService() {
-//    	
-//    	PasswordEncoder encoder = passwordEncoder();
-//    	
-//        UserDetails user = User.withUsername("user")
-//                .password(encoder.encode("user"))
-//                .roles("GENERAL")
-//                .build();
-//        UserDetails admin = User.withUsername("admin")
-//                .password(encoder.encode("admin"))
-//                .roles("ADMIN")
-//                .build();
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
     
 }

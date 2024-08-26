@@ -11,42 +11,43 @@ import todolist.service.ItemService;
 
 @Service
 public class ItemServiceImpl implements ItemService {
-	
-	@Autowired
-	private ItemMapper mapper;
+    
+    @Autowired
+    private ItemMapper mapper;
 
-	@Override
-	public List<Item> getAllItems() {
-		return mapper.getAllItems();
-	}
-	
-	@Override
-	public void entryItem(Item item) {
-		mapper.entryItem(item);
-	}
-	
-	@Override
-	public Item getItemOne(Integer id) {
-		return mapper.getItemOne(id);
-	}
-	
-	@Override
-	public void editItem(Item item) {
-		mapper.editItem(item);
+    @Override
+    public List<Item> getAllItems() {
+        return mapper.getAllItems();
     }
-	
-	@Override
-	public void deleteItem(Item item) {
-		mapper.deleteItem(item);
-	}
-	
-	@Override
-	public void completeItem(Item item) {
-		mapper.completeItem(item);
-	}
-	
-	@Override
-	public List<Item> searchItems(String searchItem) {
-		return mapper.searchItems(searchItem);
-	}
+    
+    @Override
+    public void entryItem(Item item) {
+        mapper.entryItem(item);
+    }
+    
+    @Override
+    public Item getItemOne(Integer id) {
+        return mapper.getItemOne(id);
+    }
+    
+    @Override
+    public void editItem(Item item) {
+        mapper.editItem(item);
+    }
+    
+    @Override
+    public void deleteItem(Item item) {
+        mapper.deleteItem(item);
+    }
+    
+    @Override
+    public void completeItem(Item item) {
+        mapper.completeItem(item);
+    }
+    
+    @Override
+    public List<Item> searchItems(String searchItem) {
+        return mapper.searchItems(searchItem);
+    }
+    
 }

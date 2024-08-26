@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class GlobalControllerAdvice {
     
     private static final Logger logger = LoggerFactory.getLogger(GlobalControllerAdvice.class);
-
+    
     /** データベース関連例外処理 */
     @ExceptionHandler(DataAccessException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
