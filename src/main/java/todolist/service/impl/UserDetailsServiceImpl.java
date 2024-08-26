@@ -28,8 +28,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		todolist.model.User loginUser = service.getLoginUser(username);
 		
 		if (loginUser == null) {
-			throw new UsernameNotFoundException("user not found");
-		}
+            throw new UsernameNotFoundException("ユーザーが見つかりません");
+        }
+
+        if (loginUser.getIsDeleted() == 1) {
+            throw new UsernameNotFoundException("削除されたユーザーです");
+        }
 		
 		GrantedAuthority authority = new SimpleGrantedAuthority(String.valueOf(loginUser.getIsAdmin()));
 		List<GrantedAuthority> authorities = new ArrayList<>();

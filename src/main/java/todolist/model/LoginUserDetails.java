@@ -37,5 +37,10 @@ public class LoginUserDetails implements UserDetails {
 	public String getFullname() {
 		return user.getFamilyName() + user.getFirstName();
 	}
+	
+	@Override
+    public boolean isEnabled() {
+        return user.getIsDeleted() != 1; // ユーザーが削除されていない場合は true を返す
+    }
 
 }

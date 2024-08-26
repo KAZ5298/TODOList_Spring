@@ -1,6 +1,5 @@
 package todolist.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,16 +10,21 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+
+import todolist.security.CustomAuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity   // このアノテーションはこのアプリではなくてよい
 public class SecurityConfig {
 	
-	@Autowired
-//	private UserDetailsService userDetailsService;
+	@Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
 	
 	@Bean
     PasswordEncoder passwordEncoder() {
@@ -45,6 +49,7 @@ public class SecurityConfig {
         http.formLogin(login -> login
                 .loginProcessingUrl("/login")
                 .loginPage("/login")
+                .failureHandler(customAuthenticationFailureHandler())
                 .failureUrl("/login?error")
                 .usernameParameter("user")
                 .passwordParameter("pass")
