@@ -85,7 +85,7 @@
 					<div class="form-group mb-3">
 						<label for="userId" th:text="#{todo.user}"></label>
 						<select class="form-select" id="userId" th:field="*{userId}">
-							<option th:value="null">--選択してください--</option>
+							<option th:value="${null}">--選択してください--</option>
 							<option th:each="item : ${userList}" th:value="${item.id}"
 									th:text="${item.familyName + ' ' + item.firstName}"></option>
 						</select>
@@ -95,9 +95,9 @@
 						<input type="date" class="form-control" id="expireDate" th:field="*{expireDate}">
 					</div>
 					<div class="form-check mb-3">
-						<input type="checkbox" class="form-check-input" id="checkboxIsFinished" name="isFinished" value="true"
+						<input type="checkbox" class="form-check-input" th:field="*{isFinished}" value="true"
 							   th:checked="${todoListForm.isFinished}" />
-						<label for="checkboxIsFinished" th:text="#{isFinished}"></label>
+						<label for="isFinished" th:text="#{isFinished}"></label>
 					</div>
 					<input type="submit" value="更新" class="btn btn-primary">
 					<input type="button" value="キャンセル" class="btn btn-outline-primary" onclick="location.href='/todo';">
