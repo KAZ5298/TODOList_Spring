@@ -38,38 +38,23 @@ public class TodoListController {
 	
 	// 作業一覧画面表示
 	@GetMapping("/todo")
-	public String getTodoList(Model model) {
-		
-		List<Item> itemList = itemService.getAllItems();
-		model.addAttribute("itemList", itemList);
-		
-		log.info(itemList.toString());
-		
-		return "todo/index";
-	}
-	
-	// 検索した作業一覧
-	@PostMapping("/todo")
-	public String searchTodoList(@ModelAttribute TodoListForm todoListForm, Model model) {
+	public String getTodoList(@ModelAttribute TodoListForm todoListForm, Model model) {
 		
 		String searchItem = todoListForm.getSearchItem();
 		
 		List<Item> itemList;
 		
-		// 検索フォームが空かどうか
 		if (searchItem == null || searchItem.isEmpty()) {
 			// 全作業一覧取得
 			itemList = itemService.getAllItems();
 		} else {
-			// 項目名と担当者名で検索
+			// 検索作業一覧取得（項目名と担当者名）
 			itemList = itemService.searchItems(searchItem);
 		}
 		
 		model.addAttribute("itemList", itemList);
 		
-		log.info(itemList.toString());
-		
-		model.addAttribute("isSearch", true);
+		model.addAttribute("searchItem", searchItem);
 		
 		return "todo/index";
 	}
