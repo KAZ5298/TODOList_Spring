@@ -64,7 +64,6 @@ public class SecurityConfig {
                 .frameOptions(FrameOptionsConfig::disable)
         );
         
-        
         return http.build();
     }
     
