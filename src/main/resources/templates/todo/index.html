@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- CSS -->
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}">
@@ -40,6 +40,7 @@
                             <span sec:authentication="principal.fullname"></span>さん
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             <form method="post" th:action="@{/logout}">
                                 <button class="dropdown-item" type="submit">
                                     ログアウト
@@ -91,6 +92,7 @@
                         class="align-middle"></td>
                     <td class="align-middle button">
                         <form th:action="@{/todo/complete}" method="post" class="my-sm-1">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             <input type="hidden" name="itemId" th:value="${item.id}">
                             <button class="btn btn-primary my-0" 
                                 th:disabled="${item.finishedDate != null}" type="submit">
