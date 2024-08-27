@@ -3,6 +3,7 @@ package todolist.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -38,7 +39,7 @@ public class TodoListController {
     
     // 作業一覧画面表示
     @GetMapping("/todo")
-    public String getTodoList(@ModelAttribute TodoListForm todoListForm, Model model) {
+    public String getTodoList(@ModelAttribute TodoListForm todoListForm, Model model, HttpServletRequest request) {
         
         String searchItem = todoListForm.getSearchItem();
         
@@ -56,15 +57,19 @@ public class TodoListController {
         
         model.addAttribute("searchItem", searchItem);
         
+        model.addAttribute("request", request);
+        
         return "todo/index";
     }
     
     // 作業登録画面表示
     @GetMapping("/todo/entry")
-    public String getTodoEntry(@ModelAttribute TodoListForm todoListForm, Model model) {
+    public String getTodoEntry(@ModelAttribute TodoListForm todoListForm, Model model, HttpServletRequest request) {
         
         List<User> userList = userService.getUsers();
         model.addAttribute("userList", userList);
+        
+        model.addAttribute("request", request);
         
         log.info(userList.toString());
         
@@ -97,7 +102,7 @@ public class TodoListController {
     
     // 作業修正画面表示
     @GetMapping("/todo/edit/{id}")
-    public String getTodoEdit(Model model, @PathVariable("id") Integer id) {
+    public String getTodoEdit(Model model, HttpServletRequest request, @PathVariable("id") Integer id) {
         
         List<User> userList = userService.getUsers();
         model.addAttribute("userList", userList);
@@ -116,6 +121,8 @@ public class TodoListController {
         todoListForm.setIsFinished(item.getFinishedDate() != null);
         
         model.addAttribute("todoListForm", todoListForm);
+        
+        model.addAttribute("request", request);
         
         log.info(todoListForm.toString());
         
@@ -157,7 +164,7 @@ public class TodoListController {
     
     // 作業削除画面表示
     @GetMapping("/todo/delete/{id}")
-    public String getTodoDelete(Model model, @PathVariable("id") Integer id) {
+    public String getTodoDelete(Model model, HttpServletRequest request, @PathVariable("id") Integer id) {
         
         Item item = itemService.getItemOne(id);
         
@@ -174,6 +181,8 @@ public class TodoListController {
         todoListForm.setUser(item.getUser());
         
         model.addAttribute("todoListForm", todoListForm);
+        
+        model.addAttribute("request", request);
         
         log.info(todoListForm.toString());
         
