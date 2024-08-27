@@ -196,7 +196,7 @@ public class TodoListController {
     
     // 作業削除機能
     @PostMapping("/todo/delete/{id}")
-    public String postTodoDelete(Model model, @PathVariable("id") Integer id) {
+    public String postTodoDelete(@PathVariable("id") Integer id) {
         
         Item item = itemService.getItemOne(id);
         
@@ -209,7 +209,7 @@ public class TodoListController {
     
     // 作業完了機能
     @PostMapping("/todo/complete")
-    public String postTodoComplete(Model model, @RequestParam("itemId") Integer id) {
+    public String postTodoComplete(@RequestParam("itemId") Integer id) {
         
         Item item = itemService.getItemOne(id);
         
@@ -222,7 +222,7 @@ public class TodoListController {
     
     // 作業完了機能
     @PostMapping("/todo/uncomplete")
-    public String postTodoUncomplete(Model model, @RequestParam("itemId") Integer id) {
+    public String postTodoUncomplete(@RequestParam("itemId") Integer id) {
         
         Item item = itemService.getItemOne(id);
         
