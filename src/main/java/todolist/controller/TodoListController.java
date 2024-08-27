@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
-import todolist.form.TodoListForm;
+import todolist.form.TododeleteForm;
+import todolist.form.TodoeditForm;
+import todolist.form.TodoentryForm;
 import todolist.model.Item;
 import todolist.model.User;
 import todolist.service.ItemService;
@@ -64,7 +66,7 @@ public class TodoListController {
     
     // 作業登録画面表示
     @GetMapping("/todo/entry")
-    public String getTodoEntry(@ModelAttribute TodoListForm todoListForm, Model model, HttpServletRequest request) {
+    public String getTodoEntry(@ModelAttribute TodoentryForm todoentryForm, Model model, HttpServletRequest request) {
         
         model.addAttribute("request", request);
         
@@ -78,7 +80,7 @@ public class TodoListController {
     
     // 作業登録機能
     @PostMapping("/todo/entry")
-    public String postTodoEntry(@ModelAttribute @Valid TodoListForm todoListForm,
+    public String postTodoEntry(@ModelAttribute @Valid TodoentryForm todoentryForm,
             BindingResult bindingResult, Model model, HttpServletRequest request) {
         
         model.addAttribute("request", request);
@@ -96,7 +98,7 @@ public class TodoListController {
             return "todo/entry";
         }
         
-        Item item = modelMapper.map(todoListForm, Item.class);
+        Item item = modelMapper.map(todoentryForm, Item.class);
         
         itemService.entryItem(item);
         
@@ -121,11 +123,11 @@ public class TodoListController {
             return "redirect:/todo";
         }
         
-        TodoListForm todoListForm = modelMapper.map(item, TodoListForm.class);
+        TodoeditForm todoeditForm = modelMapper.map(item, TodoeditForm.class);
         // finishedDate が null でない場合に isFinished を true に設定
-        todoListForm.setIsFinished(item.getFinishedDate() != null);
+        todoeditForm.setIsFinished(item.getFinishedDate() != null);
         
-        model.addAttribute("todoListForm", todoListForm);
+        model.addAttribute("todoeditForm", todoeditForm);
         
         return "todo/edit";
         
@@ -133,7 +135,7 @@ public class TodoListController {
     
     // 作業修正機能
     @PostMapping("/todo/edit/{id}")
-    public String postTodoEdit(@ModelAttribute @Valid TodoListForm todoListForm,
+    public String postTodoEdit(@ModelAttribute @Valid TodoeditForm todoeditForm,
             BindingResult bindingResult, @PathVariable("id") Integer id, Model model, HttpServletRequest request) {
         
         model.addAttribute("request", request);
@@ -155,10 +157,10 @@ public class TodoListController {
         // 正常処理
         Item item = itemService.getItemOne(id);
         if (item != null) {
-            item.setItemName(todoListForm.getItemName());
-            item.setUserId(todoListForm.getUserId());
-            item.setExpireDate(todoListForm.getExpireDate());
-            item.setIsFinished(todoListForm.getIsFinished() != null ? todoListForm.getIsFinished() : false);
+            item.setItemName(todoeditForm.getItemName());
+            item.setUserId(todoeditForm.getUserId());
+            item.setExpireDate(todoeditForm.getExpireDate());
+            item.setIsFinished(todoeditForm.getIsFinished() != null ? todoeditForm.getIsFinished() : false);
             
             itemService.editItem(item);
         }
@@ -179,14 +181,14 @@ public class TodoListController {
             return "redirect:/todo";
         }
         
-        TodoListForm todoListForm = modelMapper.map(item, TodoListForm.class);
+        TododeleteForm tododeleteForm = modelMapper.map(item, TododeleteForm.class);
         // finishedDate が null でない場合に isFinished を true に設定
-        todoListForm.setIsFinished(item.getFinishedDate() != null);
+        tododeleteForm.setIsFinished(item.getFinishedDate() != null);
         
         // Userオブジェクトをセット
-        todoListForm.setUser(item.getUser());
+        tododeleteForm.setUser(item.getUser());
         
-        model.addAttribute("todoListForm", todoListForm);
+        model.addAttribute("tododeleteForm", tododeleteForm);
         
         return "todo/delete";
         
@@ -194,7 +196,7 @@ public class TodoListController {
     
     // 作業削除機能
     @PostMapping("/todo/delete/{id}")
-    public String postTodoDelete(Model model, TodoListForm todoListForm, @PathVariable("id") Integer id) {
+    public String postTodoDelete(Model model, @PathVariable("id") Integer id) {
         
         Item item = itemService.getItemOne(id);
         
@@ -207,7 +209,7 @@ public class TodoListController {
     
     // 作業完了機能
     @PostMapping("/todo/complete")
-    public String postTodoComplete(Model model, TodoListForm todoListForm, @RequestParam("itemId") Integer id) {
+    public String postTodoComplete(Model model, @RequestParam("itemId") Integer id) {
         
         Item item = itemService.getItemOne(id);
         
@@ -220,7 +222,7 @@ public class TodoListController {
     
     // 作業完了機能
     @PostMapping("/todo/uncomplete")
-    public String postTodoUncomplete(Model model, TodoListForm todoListForm, @RequestParam("itemId") Integer id) {
+    public String postTodoUncomplete(Model model, @RequestParam("itemId") Integer id) {
         
         Item item = itemService.getItemOne(id);
         

@@ -9,10 +9,9 @@ import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
-import todolist.model.User;
 
 @Data
-public class TodoIndexForm {
+public class TodoeditForm {
     
     private Integer id;
     
@@ -23,20 +22,10 @@ public class TodoIndexForm {
     @NotBlank(message = "項目名は必須です。")
     private String itemName;
     
-    private Date registrationDate;
-    
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "期限は必ず入力してください")
     private Date expireDate;
     
-    private Date finishedDate;
-    
     private Boolean isFinished;
     
-    private Integer isDeleted;
-    
-    private User user;
-    
-    private String searchItem;
-
 }

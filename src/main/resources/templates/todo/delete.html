@@ -20,7 +20,7 @@
         <div class="row my-2">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <form th:action="@{/todo/delete/{id}(id=${todoListForm.id})}" method="post" th:object="${todoListForm}">
+                <form th:action="@{/todo/delete/{id}(id=${tododeleteForm.id})}" method="post" th:object="${tododeleteForm}">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <input type="hidden" th:field="*{id}" />
                     <div class="mb-3">
@@ -29,14 +29,14 @@
                     </div>
                     <div class="mb-3">
                         <label for="userId" th:text="#{todo.user}"></label>
-                        <input type="text" class="form-control" th:value="${todoListForm.user.familyName} + ' ' + ${todoListForm.user.firstName}" disabled>
+                        <input type="text" class="form-control" th:value="${tododeleteForm.user.familyName} + ' ' + ${tododeleteForm.user.firstName}" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="expireDate" th:text="#{expireDate}"></label>
                         <input type="date" class="form-control" th:field="*{expireDate}" disabled>
                     </div>
                     <div class="form-check mb-3">
-                        <input type="checkbox" id="checkboxIsFinished" class="form-check-input" name="isFinished" th:checked="${todoListForm.isFinished}" disabled/>
+                        <input type="checkbox" id="checkboxIsFinished" class="form-check-input" name="isFinished" th:checked="${tododeleteForm.isFinished}" disabled/>
                         <label for="checkboxIsFinished" th:text="#{isFinished}"></label>
                     </div>
                     <button type="submit" class="btn btn-danger">削除</button>

@@ -5,7 +5,8 @@ import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import todolist.form.TodoListForm;
+import todolist.form.TododeleteForm;
+import todolist.form.TodoeditForm;
 import todolist.model.Item;
 
 @Configuration
@@ -14,39 +15,57 @@ public class JavaConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
-
-        // ItemからTodoListFormへのマッピング設定
-        modelMapper.addMappings(new PropertyMap<Item, TodoListForm>() {
+        
+        // ItemからTodoeditFormへのマッピング設定
+        modelMapper.addMappings(new PropertyMap<Item, TodoeditForm>() {
             @Override
             protected void configure() {
                 map().setId(source.getId());
                 map().setUserId(source.getUserId());
                 map().setItemName(source.getItemName());
-                map().setRegistrationDate(source.getRegistrationDate());
                 map().setExpireDate(source.getExpireDate());
-                map().setFinishedDate(source.getFinishedDate());
                 map().setIsFinished(source.getIsFinished());
-                map().setIsDeleted(source.getIsDeleted());
-                map().setUser(source.getUser());
             }
         });
-
-        // TodoListFormからItemへのマッピング設定
-        modelMapper.addMappings(new PropertyMap<TodoListForm, Item>() {
+        
+        // TodoeditFormからItemへのマッピング設定
+        modelMapper.addMappings(new PropertyMap<TodoeditForm, Item>() {
             @Override
             protected void configure() {
                 map().setId(source.getId());
                 map().setUserId(source.getUserId());
                 map().setItemName(source.getItemName());
-                map().setRegistrationDate(source.getRegistrationDate());
                 map().setExpireDate(source.getExpireDate());
-                map().setFinishedDate(source.getFinishedDate());
                 map().setIsFinished(source.getIsFinished());
-                map().setIsDeleted(source.getIsDeleted());
+            }
+        });
+        
+        // ItemからTododeleteFormへのマッピング設定
+        modelMapper.addMappings(new PropertyMap<Item, TododeleteForm>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setUserId(source.getUserId());
+                map().setItemName(source.getItemName());
+                map().setExpireDate(source.getExpireDate());
+                map().setIsFinished(source.getIsFinished());
                 map().setUser(source.getUser());
             }
         });
-
+        
+        // TododeleteFormからItemへのマッピング設定
+        modelMapper.addMappings(new PropertyMap<TododeleteForm, Item>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setUserId(source.getUserId());
+                map().setItemName(source.getItemName());
+                map().setExpireDate(source.getExpireDate());
+                map().setIsFinished(source.getIsFinished());
+                map().setUser(source.getUser());
+            }
+        });
+        
         return modelMapper;
     }
 }
