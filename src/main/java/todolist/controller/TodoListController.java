@@ -39,9 +39,10 @@ public class TodoListController {
     
     // 作業一覧画面表示
     @GetMapping("/todo")
-    public String getTodoList(@ModelAttribute TodoListForm todoListForm, Model model, HttpServletRequest request) {
+    public String getTodoList(@RequestParam(name = "searchItem", required = false) String searchItem,
+            Model model, HttpServletRequest request) {
         
-        String searchItem = todoListForm.getSearchItem();
+        model.addAttribute("request", request);
         
         List<Item> itemList;
         
@@ -57,29 +58,30 @@ public class TodoListController {
         
         model.addAttribute("searchItem", searchItem);
         
-        model.addAttribute("request", request);
-        
         return "todo/index";
+        
     }
     
     // 作業登録画面表示
     @GetMapping("/todo/entry")
     public String getTodoEntry(@ModelAttribute TodoListForm todoListForm, Model model, HttpServletRequest request) {
         
-        List<User> userList = userService.getUsers();
-        model.addAttribute("userList", userList);
-        
         model.addAttribute("request", request);
         
-        log.info(userList.toString());
+        List<User> userList = userService.getUsers();
+        
+        model.addAttribute("userList", userList);
         
         return "todo/entry";
+        
     }
     
     // 作業登録機能
     @PostMapping("/todo/entry")
     public String postTodoEntry(@ModelAttribute @Valid TodoListForm todoListForm,
-            BindingResult bindingResult, Model model) {
+            BindingResult bindingResult, Model model, HttpServletRequest request) {
+        
+        model.addAttribute("request", request);
         
         if (bindingResult.hasErrors()) {
             List<User> userList = userService.getUsers();
@@ -88,6 +90,7 @@ public class TodoListController {
             List<String> errorMessages = bindingResult.getAllErrors().stream()
                     .map(error -> error.getDefaultMessage())
                     .collect(Collectors.toList());
+            
             model.addAttribute("errorMessages", errorMessages);
             
             return "todo/entry";
@@ -98,16 +101,18 @@ public class TodoListController {
         itemService.entryItem(item);
         
         return "redirect:/todo";
+        
     }
     
     // 作業修正画面表示
     @GetMapping("/todo/edit/{id}")
     public String getTodoEdit(Model model, HttpServletRequest request, @PathVariable("id") Integer id) {
         
-        List<User> userList = userService.getUsers();
-        model.addAttribute("userList", userList);
+        model.addAttribute("request", request);
         
-        log.info(userList.toString());
+        List<User> userList = userService.getUsers();
+        
+        model.addAttribute("userList", userList);
         
         Item item = itemService.getItemOne(id);
         
@@ -122,17 +127,16 @@ public class TodoListController {
         
         model.addAttribute("todoListForm", todoListForm);
         
-        model.addAttribute("request", request);
-        
-        log.info(todoListForm.toString());
-        
         return "todo/edit";
+        
     }
     
     // 作業修正機能
     @PostMapping("/todo/edit/{id}")
     public String postTodoEdit(@ModelAttribute @Valid TodoListForm todoListForm,
-            BindingResult bindingResult, @PathVariable("id") Integer id, Model model) {
+            BindingResult bindingResult, @PathVariable("id") Integer id, Model model, HttpServletRequest request) {
+        
+        model.addAttribute("request", request);
         
         if (bindingResult.hasErrors()) {
             List<User> userList = userService.getUsers();
@@ -166,6 +170,8 @@ public class TodoListController {
     @GetMapping("/todo/delete/{id}")
     public String getTodoDelete(Model model, HttpServletRequest request, @PathVariable("id") Integer id) {
         
+        model.addAttribute("request", request);
+        
         Item item = itemService.getItemOne(id);
         
         if (item == null) {
@@ -182,11 +188,8 @@ public class TodoListController {
         
         model.addAttribute("todoListForm", todoListForm);
         
-        model.addAttribute("request", request);
-        
-        log.info(todoListForm.toString());
-        
         return "todo/delete";
+        
     }
     
     // 作業削除機能
@@ -210,6 +213,19 @@ public class TodoListController {
         
         if (item != null) {
             itemService.completeItem(item);
+        }
+        
+        return "redirect:/todo";
+    }
+    
+    // 作業完了機能
+    @PostMapping("/todo/uncomplete")
+    public String postTodoUncomplete(Model model, TodoListForm todoListForm, @RequestParam("itemId") Integer id) {
+        
+        Item item = itemService.getItemOne(id);
+        
+        if (item != null) {
+            itemService.uncompleteItem(item);
         }
         
         return "redirect:/todo";

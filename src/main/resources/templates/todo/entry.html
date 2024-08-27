@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- head共通レイアウト -->
 <head th:replace="layout/common :: common_head('作業登録', null)">
 </head>
 <body>
+    <!-- ナビゲーションバー共通レイアウト -->
     <nav th:insert="~{layout/common :: common_nav}"></nav>
     
     <!-- コンテナ -->

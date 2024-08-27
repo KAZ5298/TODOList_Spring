@@ -11,7 +11,7 @@
         <!-- 検索フォーム -->
         <div class="row my-2">
             <div class="col text-end">
-                <form class="d-flex justify-content-end w-100" th:action="@{/todo}" method="get" th:object="${todoListForm}">
+                <form class="d-flex justify-content-end w-100" th:action="@{/todo}" method="get">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                          name="searchItem" th:value="${searchItem}">
                     <button class="btn btn-secondary" type="submit" id="searchBtn" name="searchBtn">検索</button>
@@ -43,12 +43,11 @@
                     <td th:text="${item.finishedDate != null ? #dates.format(item.finishedDate, 'yyyy/MM/dd') : '未'}"
                         class="align-middle"></td>
                     <td class="align-middle button">
-                        <form th:action="@{/todo/complete}" method="post" class="my-sm-1">
+                        <form th:action="${item.finishedDate == null} ? @{/todo/complete} : @{/todo/uncomplete}" method="post" class="my-sm-1">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             <input type="hidden" name="itemId" th:value="${item.id}">
-                            <button class="btn btn-primary my-0" 
-                                th:disabled="${item.finishedDate != null}" type="submit">
-                                完了
+                            <button class="btn btn-primary my-0" type="submit">
+                                <span th:text="${item.finishedDate == null} ? '完了' : '未完了'"></span>
                             </button>
                         </form>
                         <a class="btn btn-success my-0" th:href="@{'/todo/edit/' + ${item.id}}">

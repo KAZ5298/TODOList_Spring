@@ -151,4 +151,14 @@
             id = #{id}
     </update>
     
+    <!-- 作業を未完了に戻す -->
+    <update id="uncompleteItem">
+        update
+            todo_items
+        set
+            finished_date = null
+        where
+            id = #{id}
+    </update>
+    
 </mapper>

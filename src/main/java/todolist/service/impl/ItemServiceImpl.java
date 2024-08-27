@@ -46,6 +46,11 @@ public class ItemServiceImpl implements ItemService {
     }
     
     @Override
+    public void uncompleteItem(Item item) {
+        mapper.uncompleteItem(item);
+    }
+    
+    @Override
     public List<Item> searchItems(String searchItem) {
         return mapper.searchItems(searchItem);
     }

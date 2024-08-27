@@ -18,6 +18,8 @@ public interface ItemService {
     
     public void completeItem(Item item);
     
+    public void uncompleteItem(Item item);
+    
     public List<Item> searchItems(String searchItem);
     
 }
