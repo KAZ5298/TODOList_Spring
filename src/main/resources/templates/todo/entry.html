@@ -24,12 +24,12 @@
                 <form th:action="@{/todo/entry}" method="post" th:object="${todoentryForm}">
                     <div class="form-group mb-3">
                         <label for="itemName" th:text="#{itemName}"></label>
-                        <input type="text" class="form-control" id="itemName" th:field="*{itemName}">
+                        <input type="text" class="form-control" id="itemName" th:field="*{itemName}" required>
                         <div th:if="${#fields.hasErrors('itemName')}" class="text-danger" th:errors="*{itemName}"></div>
                     </div>
                     <div class="form-group mb-3">
                         <label for="userId" th:text="#{todo.user}"></label>
-                        <select class="form-select" id="userId" th:field="*{userId}">
+                        <select class="form-select" id="userId" th:field="*{userId}" required>
                             <option th:value="${null}">--選択してください--</option>
                             <option th:each="item : ${userList}" th:value="${item.id}"
                                     th:text="${item.familyName + ' ' + item.firstName}"></option>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="expireDate" th:text="#{expireDate}"></label>
-                        <input type="date" class="form-control" id="expireDate" th:field="*{expireDate}">
+                        <input type="date" class="form-control" id="expireDate" th:field="*{expireDate}" required>
                         <div th:if="${#fields.hasErrors('expireDate')}" class="text-danger" th:errors="*{expireDate}"></div>
                     </div>
                     <div class="form-group mb-3">

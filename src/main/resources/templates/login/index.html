@@ -38,14 +38,13 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
                 <form th:action="@{/login}" method="post" th:object="${loginForm}">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <div class="form-group mb-3">
                         <label for="user" th:text="#{login.user}"></label>
-                        <input type="text" id="user" th:field="*{user}" class="form-control" placeholder="ユーザー名">
+                        <input type="text" id="user" th:field="*{user}" class="form-control" placeholder="ユーザー名" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="pass" th:text="#{pass}"></label>
-                        <input type="password" id="pass" th:field="*{pass}" class="form-control" placeholder="パスワード">
+                        <input type="password" id="pass" th:field="*{pass}" class="form-control" placeholder="パスワード" required>
                     </div>
                     <button type="submit" class="btn btn-primary" th:text="#{login.btn}"></button>
                 </form>

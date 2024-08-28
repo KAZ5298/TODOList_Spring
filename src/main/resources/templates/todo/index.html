@@ -13,7 +13,7 @@
             <div class="col text-end">
                 <form class="d-flex justify-content-end w-100" th:action="@{/todo}" method="get">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                         name="searchItem" th:value="${searchItem}">
+                         name="searchItem" th:value="${searchItem}" required>
                     <button class="btn btn-secondary" type="submit" id="searchBtn" name="searchBtn">検索</button>
                 </form>
             </div>
@@ -44,7 +44,6 @@
                         class="align-middle"></td>
                     <td class="align-middle button">
                         <form th:action="${item.finishedDate == null} ? @{/todo/complete} : @{/todo/uncomplete}" method="post" class="my-sm-1">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             <input type="hidden" name="itemId" th:value="${item.id}">
                             <button class="btn btn-primary my-0" type="submit">
                                 <span th:text="${item.finishedDate == null} ? '完了' : '未完了'"></span>

@@ -21,7 +21,6 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
                 <form th:action="@{/todo/delete/{id}(id=${tododeleteForm.id})}" method="post" th:object="${tododeleteForm}">
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <input type="hidden" th:field="*{id}" />
                     <div class="mb-3">
                         <label for="itemName" th:text="#{itemName}"></label>
