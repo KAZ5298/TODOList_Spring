@@ -34,7 +34,7 @@
             <tbody>
                 <tr th:each="item : ${itemList}"
                     th:classappend="${(item.expireDate < #dates.createNow() && item.finishedDate == null) ? 'table-danger' : ''} 
-                                    + ${item.finishedDate != null ? ' del' : ''}"
+                                    + ${item.finishedDate != null ? 'del' : ''}"
                     class="align-middle">
                     <td th:text="${item.itemName}" class="align-middle"></td>
                     <td th:text="${item.user.familyName} + ' ' + ${item.user.firstName}" class="align-middle"></td>
