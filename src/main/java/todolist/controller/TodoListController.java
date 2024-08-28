@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
-import todolist.form.TododeleteForm;
 import todolist.form.TodoeditForm;
 import todolist.form.TodoentryForm;
 import todolist.model.Item;
@@ -175,17 +174,12 @@ public class TodoListController {
             return "redirect:/todo";
         }
         
-        TododeleteForm tododeleteForm = modelMapper.map(item, TododeleteForm.class);
-        // finishedDate が null でない場合に isFinished を true に設定
-        tododeleteForm.setIsFinished(item.getFinishedDate() != null);
+        // 完了ボタンの処理
+        item.setIsFinished(item.getFinishedDate() != null);
         
-        // Userオブジェクトをセット
-        tododeleteForm.setUser(item.getUser());
-        
-        model.addAttribute("tododeleteForm", tododeleteForm);
+        model.addAttribute("item", item);
         
         return "todo/delete";
-        
     }
     
     // 作業削除機能

@@ -5,7 +5,6 @@ import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import todolist.form.TododeleteForm;
 import todolist.form.TodoeditForm;
 import todolist.model.Item;
 
@@ -37,32 +36,6 @@ public class JavaConfig {
                 map().setItemName(source.getItemName());
                 map().setExpireDate(source.getExpireDate());
                 map().setIsFinished(source.getIsFinished());
-            }
-        });
-        
-        // ItemからTododeleteFormへのマッピング設定
-        modelMapper.addMappings(new PropertyMap<Item, TododeleteForm>() {
-            @Override
-            protected void configure() {
-                map().setId(source.getId());
-                map().setUserId(source.getUserId());
-                map().setItemName(source.getItemName());
-                map().setExpireDate(source.getExpireDate());
-                map().setIsFinished(source.getIsFinished());
-                map().setUser(source.getUser());
-            }
-        });
-        
-        // TododeleteFormからItemへのマッピング設定
-        modelMapper.addMappings(new PropertyMap<TododeleteForm, Item>() {
-            @Override
-            protected void configure() {
-                map().setId(source.getId());
-                map().setUserId(source.getUserId());
-                map().setItemName(source.getItemName());
-                map().setExpireDate(source.getExpireDate());
-                map().setIsFinished(source.getIsFinished());
-                map().setUser(source.getUser());
             }
         });
         

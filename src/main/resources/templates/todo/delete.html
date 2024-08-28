@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{layout/common :: common_head('削除確認', null)}">
+<head th:replace="~{layout/common :: common_head('削除確認', '/css/todo/delete.css')}">
 </head>
 
 <body>
@@ -21,23 +21,23 @@
         <div class="row my-2">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <form th:action="@{/todo/delete/{id}(id=${tododeleteForm.id})}" method="post" th:object="${tododeleteForm}">
-                    <input type="hidden" th:field="*{id}" />
-                    <div class="mb-3">
+                <form th:action="@{/todo/delete/{id}(id=${item.id})}" method="post">
+                    <input type="hidden" name="id" th:value="${item.id}" />
+                    <div class="mb-3 label-span-container">
                         <label for="itemName" th:text="#{itemName}"></label>
-                        <input type="text" class="form-control" th:field="*{itemName}" disabled>
+                        <span th:text="${item.itemName}"></span>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 label-span-container">
                         <label for="userId" th:text="#{todo.user}"></label>
-                        <input type="text" class="form-control" th:value="${tododeleteForm.user.familyName} + ' ' + ${tododeleteForm.user.firstName}" disabled>
+                        <span th:text="${item.user.familyName} + ' ' + ${item.user.firstName}"></span>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 label-span-container">
                         <label for="expireDate" th:text="#{expireDate}"></label>
-                        <input type="date" class="form-control" th:field="*{expireDate}" disabled>
+                        <span th:text="${#dates.format(item.expireDate, 'yyyy/MM/dd')}"></span>
                     </div>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" id="checkboxIsFinished" class="form-check-input" name="isFinished" th:checked="${tododeleteForm.isFinished}" disabled/>
-                        <label for="checkboxIsFinished" th:text="#{isFinished}"></label>
+                    <div class="mb-3 label-span-container">
+                        <label for="status" th:text="#{status}"></label>
+                        <span th:text="${item.isFinished ? '完了' : '未完'}"></span>
                     </div>
                     <button type="submit" class="btn btn-danger">削除</button>
                     <button type="button" class="btn btn-outline-primary" onclick="location.href='/todo';">キャンセル</button>

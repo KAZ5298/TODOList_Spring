@@ -1,0 +1,8 @@
+.label-span-container {
+    margin-bottom: 1rem; /* 下部の余白を追加 */
+}
+.label-span-container label {
+    display: block; /* ラベルをブロック要素にして改行 */
+    margin-bottom: 10px; /* ラベルとスパンの間にスペースを追加 */
+	font-weight: bold; /* ラベルを太字にする */
+}
