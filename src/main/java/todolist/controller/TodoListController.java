@@ -39,12 +39,16 @@ public class TodoListController {
     @Autowired
     private ModelMapper modelMapper;
     
+    // 共通処理
+    @ModelAttribute
+    public void commonRequest(Model model, HttpServletRequest request) {
+        model.addAttribute("request", request);
+    }
+    
     // 作業一覧画面表示
     @GetMapping("/todo")
     public String getTodoList(@RequestParam(name = "searchItem", required = false) String searchItem,
-            Model model, HttpServletRequest request) {
-        
-        model.addAttribute("request", request);
+            Model model) {
         
         List<Item> itemList;
         
@@ -66,9 +70,7 @@ public class TodoListController {
     
     // 作業登録画面表示
     @GetMapping("/todo/entry")
-    public String getTodoEntry(@ModelAttribute TodoentryForm todoentryForm, Model model, HttpServletRequest request) {
-        
-        model.addAttribute("request", request);
+    public String getTodoEntry(@ModelAttribute TodoentryForm todoentryForm, Model model) {
         
         List<User> userList = userService.getUsers();
         
@@ -81,9 +83,7 @@ public class TodoListController {
     // 作業登録機能
     @PostMapping("/todo/entry")
     public String postTodoEntry(@ModelAttribute @Valid TodoentryForm todoentryForm,
-            BindingResult bindingResult, Model model, HttpServletRequest request) {
-        
-        model.addAttribute("request", request);
+            BindingResult bindingResult, Model model) {
         
         if (bindingResult.hasErrors()) {
             List<User> userList = userService.getUsers();
@@ -108,9 +108,7 @@ public class TodoListController {
     
     // 作業修正画面表示
     @GetMapping("/todo/edit/{id}")
-    public String getTodoEdit(Model model, HttpServletRequest request, @PathVariable("id") Integer id) {
-        
-        model.addAttribute("request", request);
+    public String getTodoEdit(Model model, @PathVariable("id") Integer id) {
         
         List<User> userList = userService.getUsers();
         
@@ -136,9 +134,7 @@ public class TodoListController {
     // 作業修正機能
     @PostMapping("/todo/edit/{id}")
     public String postTodoEdit(@ModelAttribute @Valid TodoeditForm todoeditForm,
-            BindingResult bindingResult, @PathVariable("id") Integer id, Model model, HttpServletRequest request) {
-        
-        model.addAttribute("request", request);
+            BindingResult bindingResult, @PathVariable("id") Integer id, Model model) {
         
         if (bindingResult.hasErrors()) {
             List<User> userList = userService.getUsers();
@@ -170,9 +166,7 @@ public class TodoListController {
     
     // 作業削除画面表示
     @GetMapping("/todo/delete/{id}")
-    public String getTodoDelete(Model model, HttpServletRequest request, @PathVariable("id") Integer id) {
-        
-        model.addAttribute("request", request);
+    public String getTodoDelete(Model model, @PathVariable("id") Integer id) {
         
         Item item = itemService.getItemOne(id);
         
