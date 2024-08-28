@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import todolist.security.CustomAuthenticationFailureHandler;
 
@@ -31,7 +32,6 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .requestMatchers("/login").permitAll()
                 .anyRequest().authenticated()
             )
@@ -52,12 +52,10 @@ public class SecurityConfig {
             .headers(headers -> headers
                 .defaultsDisabled()  // デフォルトのヘッダー設定を無効化
                 .frameOptions(frameOptions -> frameOptions.sameOrigin()) // X-Frame-Optionsを手動で設定
+                .cacheControl(cache -> cache.disable()) // キャッシュコントロールの無効化
             )
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers(PathRequest.toH2Console())
-            )
-            .headers(headers -> headers
-                .cacheControl(cache -> cache.disable()) // キャッシュコントロールの無効化
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // CSRF トークンをクッキーで管理
             );
 
         return http.build();
