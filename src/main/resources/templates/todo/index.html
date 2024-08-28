@@ -3,6 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{layout/common :: common_head('作業一覧', '/css/todo/index.css')}">
 </head>
+
 <body>
     <nav th:insert="~{layout/common :: common_nav}"></nav>
     
@@ -13,7 +14,7 @@
             <div class="col text-end">
                 <form class="d-flex justify-content-end w-100" th:action="@{/todo}" method="get">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                         name="searchItem" th:value="${searchItem}" required>
+                         name="searchItem" th:value="${searchItem}">
                     <button class="btn btn-secondary" type="submit" id="searchBtn" name="searchBtn">検索</button>
                 </form>
             </div>

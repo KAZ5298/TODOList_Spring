@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="layout/common :: common_head('作業修正', null)">
+<head th:replace="~{layout/common :: common_head('作業修正', null)}">
 </head>
+
 <body>
     <nav th:insert="~{layout/common :: common_nav}"></nav>
     
