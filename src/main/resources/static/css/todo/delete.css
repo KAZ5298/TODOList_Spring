@@ -4,5 +4,5 @@
 .label-span-container label {
     display: block; /* ラベルをブロック要素にして改行 */
     margin-bottom: 10px; /* ラベルとスパンの間にスペースを追加 */
-	font-weight: bold; /* ラベルを太字にする */
+    font-weight: bold; /* ラベルを太字にする */
 }
