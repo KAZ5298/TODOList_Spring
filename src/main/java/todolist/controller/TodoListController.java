@@ -208,7 +208,7 @@ public class TodoListController {
         return "redirect:/todo";
     }
     
-    // 作業完了機能
+    // 作業未完了機能
     @PostMapping("/todo/uncomplete")
     public String postTodoUncomplete(@RequestParam("itemId") Integer id) {
         
